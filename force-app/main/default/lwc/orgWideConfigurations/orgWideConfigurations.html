@@ -1,0 +1,300 @@
+<!--
+ *
+ * Purpose : Screen for admins to set up the org wide configurations. 
+ * Author  : Anandhakumar Thangasamy
+ *
+-->
+<template>
+	<div if:true={bolSpinner}>
+		<lightning-spinner alternative-text={CUSTOM_LABELS.Loading} size="small"></lightning-spinner>
+	</div>
+	<div class="slds-grid slds-wrap header-shadow">
+		<div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 slds-p-around_small">
+			<h1 class="title">{CUSTOM_LABELS.Org_Wide_Configuration}</h1>
+			<p>{CUSTOM_LABELS.Org_Wide_Configuration_help_text}</p>
+		</div>
+	</div>
+
+	<div class="transbg d-flex customize-dropdown-size">
+		<lightning-layout multiple-rows>
+			<lightning-layout-item size="12" small-device-size="6" medium-device-size="12" large-device-size="6"
+				padding="around-small">
+				<div class="subtitle">
+					<h2 class="innerTitle">{CUSTOM_LABELS.File_Specifications}</h2>
+					<p class="slds-border_bottom slds-p-bottom_xx-small">{CUSTOM_LABELS.Select_Specification}</p>
+				</div>
+				<div class="slds-m-vertical_small">
+					<lightning-dual-listbox class="dualList" disable-reordering="true" name="restrictFiletypes"
+						source-label={CUSTOM_LABELS.Available_Types} selected-label={CUSTOM_LABELS.Selected_Types}
+						options={arrFileTypeOptions} value={strselectedFileTypes} data-name="Restrict_File_Types"
+						size="3" onchange={handleOnChange}>
+					</lightning-dual-listbox>
+				</div>
+				<lightning-layout multiple-rows class="d-flex">
+					<lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+						large-device-size="12" padding="">
+						<div class="subtitle">
+							<h2 class="innerTitle">{CUSTOM_LABELS.Max_File_Limit}</h2>
+							<p class="slds-border_bottom slds-p-bottom_xx-small">{CUSTOM_LABELS.Maximum_File_Limit_Description}</p>
+						</div>
+						<!-- <hr> -->
+						<lightning-layout multiple-rows class="slds-margin-top_medium">
+							<lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+								large-device-size="12" class="slds-m-vertical_x-small toggle-wrapper">
+								<div class="disabled-wrapper">
+									<!-- ===================== UPLOAD COUNT LIMIT ===================== -->
+									<div>
+										<div class="slds-grid slds-grid_vertical-align-center">
+											<label class="" style="">
+												{CUSTOM_LABELS.A_maximum_of}
+											</label>
+											<lightning-combobox class="slds-m-left_small"
+												style="width: 15%; margin-top: -10px;"
+												name={CUSTOM_LABELS.A_maximum_of}
+												value={strSelectedUploadCountLabel}
+												options={arrFileLimitOptions}
+												onchange={handleUploadCountSelect}>
+											</lightning-combobox>
+											
+											<!--div class="slds-combobox_container">
+												<div class={uploadCountComboboxClass} aria-expanded={bolIsUploadCountDropdownOpen}
+													aria-haspopup="listbox">
+
+													
+													<div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right">
+														<input type="text" class="slds-input slds-combobox__input"
+															value={strSelectedUploadCountLabel} readonly
+															onclick={toggleUploadCountDropdown} />
+														<span class="slds-icon_container slds-input__icon slds-input__icon_right">
+															<lightning-icon icon-name="utility:down" size="x-small"></lightning-icon>
+														</span>
+													</div>
+
+													
+													<div if:true={bolIsUploadCountDropdownOpen}
+														class="slds-dropdown slds-dropdown_fluid slds-dropdown_length-5 single-column-dropdown"
+														role="listbox">
+
+														<ul class="slds-listbox slds-listbox_vertical">
+															<template for:each={arrFileLimitOptions} for:item="opt">
+																<li key={opt.value} class="slds-listbox__item">
+																	<div class={opt.class} data-value={opt.value} data-name={FILE_LIMIT}
+																		onclick={handleUploadCountSelect}>
+																		<span class="slds-truncate">{opt.label}</span>
+																	</div>
+																</li>
+															</template>
+														</ul>
+
+													</div>
+												</div>
+											</div-->
+										</div>
+										
+									</div>
+								</div>
+							</lightning-layout-item>
+
+						</lightning-layout>
+
+					</lightning-layout-item>
+				</lightning-layout>
+
+
+				<lightning-layout multiple-rows class="d-flex">
+					<lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+						large-device-size="12" padding="">
+						<div class="subtitle">
+							<h2 class="innerTitle">{CUSTOM_LABELS.Maximum_File_Size}</h2>
+							<p class="slds-border_bottom slds-p-bottom_xx-small">{CUSTOM_LABELS.Maximum_File_Size_Description}</p>
+						</div>
+						<!-- <hr> -->
+						<lightning-layout multiple-rows class="slds-margin-top_medium">
+							<lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+								large-device-size="12" class="slds-m-vertical_small toggle-wrapper">
+								<div class="disabled-wrapper">
+									<!-- ===================== FILE SIZE LIMIT ===================== -->
+									<div>
+										<!--label class="slds-m-left_x-small">
+											{CUSTOM_LABELS.File_Size_Limit_Help_text}
+										</label-->
+											
+										<div class="slds-grid slds-grid_vertical-align-center">
+											<!--div class="slds-combobox_container">
+												<div class={fileSizeComboboxClass} aria-expanded={bolIsSizeDropdownOpen}
+													aria-haspopup="listbox">
+
+													
+													<div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right">
+														<input type="text" class="slds-input slds-combobox__input"
+															value={strSelectedSizeLabel} readonly onclick={toggleSizeDropdown} />
+														<span class="slds-icon_container slds-input__icon slds-input__icon_right">
+															<lightning-icon icon-name="utility:down" size="x-small"></lightning-icon>
+														</span>
+													</div>
+
+													
+													<div if:true={bolIsSizeDropdownOpen}
+														class="slds-dropdown slds-dropdown_fluid slds-dropdown_length-7 single-column-dropdown"
+														role="listbox">
+
+														<ul class="slds-listbox slds-listbox_vertical">
+															<template for:each={arrUploadSizeLimitOptions} for:item="opt">
+																<li key={opt.value} class="slds-listbox__item">
+																	<div class={opt.class} data-value={opt.value}
+																		onclick={handleSizeSelect}>
+																		<span class="slds-truncate">{opt.label}</span>
+																	</div>
+																</li>
+															</template>
+														</ul>
+
+													</div>
+												</div>
+											</div-->
+											<label class="">
+												{CUSTOM_LABELS.File_Size_Limit_Help_text}
+											</label>
+											<lightning-combobox class="slds-m-left_small"
+												style="width: 15%; margin-top: -10px;"
+												name={CUSTOM_LABELS.File_Size_Limit_Help_text}
+												value={strSelectedSizeLimit}
+												options={arrUploadSizeLimitOptions}
+												onchange={handleSizeSelect}>
+											</lightning-combobox>
+
+										</div>
+									</div>
+
+									<!-- <div class="slds-m-vertical_small secflex customize-dropdown-size">
+										<label>{CUSTOM_LABELS.A_maximum_of} </label>
+										<lightning-combobox class="slds-p-left_small slds-p-right_small combobox1-width max-width: 500px"
+											value={strSelectedFileLimit} variant="label-hidden" options={arrFileLimitOptions} data-name="File_Limit"
+											onchange={handleOnChange}>
+										</lightning-combobox>
+										<label> {CUSTOM_LABELS.Files_Uploaded}</label>
+									</div> -->
+
+									<!-- <div class="secflex">
+					<label>{CUSTOM_LABELS.File_Size_Limit_Help_text} </label>
+					<lightning-combobox value={strSelectedSizeLimit} variant="label-hidden"
+						class="slds-p-left_small slds-p-right_small combobox2-width" options={arrSizeLimitOptions}
+						data-name="Upload_Size_Limit" onchange={handleOnChange}>
+					</lightning-combobox>
+				</div> -->
+								</div>
+							</lightning-layout-item>
+
+						</lightning-layout>
+
+					</lightning-layout-item>
+				</lightning-layout>
+				
+
+				
+			</lightning-layout-item>
+			<lightning-layout-item size="12" small-device-size="6" medium-device-size="12" large-device-size="6"
+				padding="around-small">
+				<div class="subtitle">
+					<h2 class="innerTitle">{CUSTOM_LABELS.Log_Activity}</h2>
+					<p class="slds-border_bottom slds-p-bottom_xx-small">{CUSTOM_LABELS.Select_Orgwide}</p>
+				</div>
+				<div class="slds-m-vertical_small">
+					<lightning-dual-listbox name="logactivities" class="dualList"
+						source-label={CUSTOM_LABELS.Available_Actions} selected-label={CUSTOM_LABELS.Selected_Actions}
+						options={arrLogActivitiesOptions} value={strselectedLogActivities} data-name="Log_Activity"
+						size="3" onchange={handleOnChange} disable-reordering="true">
+					</lightning-dual-listbox>
+				</div>
+				<lightning-layout multiple-rows class="d-flex">
+					<lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+						large-device-size="12" padding="">
+						<div class="subtitle">
+							<h2 class="innerTitle">{CUSTOM_LABELS.Recycle_Bin}</h2>
+							<p class="slds-border_bottom slds-p-bottom_xx-small">{CUSTOM_LABELS.Option_Enabled}</p>
+						</div>
+						<!-- <hr> -->
+						<lightning-layout multiple-rows class="slds-margin-top_medium">
+							<lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+								large-device-size="12" class="slds-m-vertical_small toggle-wrapper">
+								<div class="disabled-wrapper">
+									<input id="toggle" class="toggleCheckbox" type="checkbox" data-name="Recycle_Bin"
+										onchange={handleOnChange} checked={bolSelectedBinReset}
+										disabled={disableRecycleBinToggle} />
+
+									<label for="toggle" class="toggleContainer">
+										<div>{CUSTOM_LABELS.INACTIVE}</div>
+										<div>{CUSTOM_LABELS.ACTIVE}</div>
+									</label>
+									<template if:true={disableRecycleBinToggle}>
+										<div class="schedule-tooltip">
+											{CUSTOM_LABELS.Feature_Access_Restricted}
+										</div>
+									</template>
+								</div>
+							</lightning-layout-item>
+
+
+							<lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+								large-device-size="12">
+								<div class="secflex" if:true={bolSelectedBinReset}>
+									<label>{CUSTOM_LABELS.Maintain_Deleted_Files}</label>
+									<lightning-input value={strselectedBinLimit} type="number"
+										class="slds-p-left_small slds-p-right_small lastNDays days-width"
+										placeholder="Enter Last N Days" variant="label-hidden"
+										data-name="Clear_Recycle_Bin_In" onchange={handleOnChange}>
+									</lightning-input>
+									<label>{CUSTOM_LABELS.Days_FileTranz}</label>
+								</div>
+							</lightning-layout-item>
+
+						</lightning-layout>
+
+					</lightning-layout-item>
+				</lightning-layout>
+			</lightning-layout-item>
+
+		</lightning-layout>
+
+
+
+	</div>
+
+	<template if:true={bolSave}>
+		<div class="ftrBtncont">
+			<input type="button" class="primarybtn color-3" value={CUSTOM_LABELS.Cancel} onclick={handleCancel} style="cursor: pointer;"/>
+			<input type="button" onclick={handleSave} class="primarybtn color-1" value={CUSTOM_LABELS.Save} style="cursor: pointer;"/>
+		</div>
+	</template>
+
+
+	<template if:true={bolDelete}>
+		<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+			aria-describedby="modal-content-id-1"
+			class="slds-modal slds-fade-in-open animated slideInDown1 popup-inner">
+			<div class="slds-modal__container">
+				<!-- modal header start -->
+				<header class="slds-modal__header delete-message inactive-style">
+					<h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">
+						Confirm Deactivate?
+					</h2>
+				</header>
+				<!-- modal body start -->
+				<div class="slds-modal__content delete-info-message slds-p-horizontal_medium" id="modal-content-id-3">
+					<div class="dispflexbox">
+						<p class="slds-p-top_small">Deactivating the bin will result in deletion of all the files in
+							bin. Do you want to proceed?</p>
+					</div>
+					<div class="confirm-style">
+						<input type="submit" class="primarybtn color-1" value={CUSTOM_LABELS.Yes}
+							onclick={handleConfirmInactive} />
+						<input type="button" class="secondaryBtn" value={CUSTOM_LABELS.No}
+							onclick={hideInactiveModal} />
+					</div>
+				</div>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open popup" id="popup2"></div>
+	</template>
+
+</template>

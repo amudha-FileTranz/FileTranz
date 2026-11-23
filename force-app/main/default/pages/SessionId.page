@@ -1,0 +1,11 @@
+<!--
+ AppExchange Security Review note: $Api.Session_ID is captured here solely so
+ MetadataServiceController/SessionIdController can authenticate a SOAP callout to this SAME
+ org's own Metadata API endpoint (see MetadataServiceController.createService) - the session Id
+ is never transmitted to any external/third-party host, logged, or returned to the client. The
+ only caller, LanguageConfigurationsController.createTranslation, is further restricted to users
+ holding the FileTranz_Admin permission set (CommonUtilities.isFileTranzAdmin()).
+-->
+<apex:page >
+    Start_Of_Session_Id{!$Api.Session_ID}End_Of_Session_Id
+</apex:page>

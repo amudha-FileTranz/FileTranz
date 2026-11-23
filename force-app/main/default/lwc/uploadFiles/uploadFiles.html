@@ -1,0 +1,100 @@
+<!--
+ * Purpose : To upload local files to external system. 
+ * Author  : Giri
+-->
+<template>
+	<article class="slds-tile" if:true={state.bolShowUpload}>
+		<!-- Loader -->
+		<div if:true={state.bolSpinner}>
+			<lightning-spinner alternative-text={CUSTOM_LABELS.Loading} size="small"></lightning-spinner>
+		</div>
+		<div class="fileuploadsection-style upload-files-custom-style">
+			<!-- file upload section -->
+			<div class="slds-var-p-horizontal_medium">
+				<div class="display-style text-center slds-p-vertical_x-small">
+					<div class="header-style">
+						<h2 class="slds-card__header-title">
+							<label class="font_style"><b>{CUSTOM_LABELS.File_Upload}</b></label>
+						</h2>
+					</div>
+					<div class="addfilesbutton-style">
+						<button class="iconbutton-style slds-button slds-button_icon btnicn greenbtn slds-float_right"
+							onclick={handleAddFile} disabled={state.bolDisableUpload} title={CUSTOM_LABELS.Add_Files}>
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14.234 16.87">
+								<g id="Group_189" data-name="Group 189" transform="translate(-2083.818 -520.436)">
+									<path id="Subtraction_136" data-name="Subtraction 136"
+										d="M-1846.518-842.258h-11.547v-14.315h1.692v12.8h9.855v1.509Zm2.687-2.811h-11.247v-14.06h8.269l2.978,2.983v11.075Zm-6.355-5.731v2.216H-1849V-850.8h2.216v-1.192H-1849v-2.216h-1.192v2.216h-2.216v1.192Z"
+										transform="translate(3941.883 1379.564)" fill="#3a59af" />
+									<path id="Polygon_12" data-name="Polygon 12" d="M2.109,0,4.218,2.109H0Z"
+										transform="translate(2096.56 524.91) rotate(-135)" fill="#3a59af" />
+								</g>
+							</svg>
+							<p class="buttoncolour-style">{CUSTOM_LABELS.Add_Files}</p>
+						</button>
+
+					</div>
+				</div>
+			</div>
+			<div class="uploadCont" onclick={handleButtonClick} ondragover={handleDragOver} ondrop={handleDrop}>
+				<input type="file" multiple accept={data.acceptedFormats} class="file-input file-selector-large" onchange={handleSelectedFiles} data-id="fileInput" disabled={state.bolDisableUpload} hidden/>
+				<div class="flexcont"  >
+					<lightning-icon icon-name="utility:upload" size="small" class="upload-cloud-icon"></lightning-icon>
+					<button class="slds-button slds-button_neutral upload-button" onclick={handleButtonClick}>
+						{CUSTOM_LABELS.Upload_here}
+					</button>
+					<div ondragover={handleDragOver} ondrop={handleDrop}>
+						<p class="dragfiles-style">{CUSTOM_LABELS.Drag_your_files_here}</p>
+						<p class="slds-text-title help-text slds-p-top_xx-small">
+							{CUSTOM_LABELS.Max_File}: {parentData.intAllowFilesToUpload} {CUSTOM_LABELS.files}{CUSTOM_LABELS.Per_Upload}<br/>
+							{CUSTOM_LABELS.Max_Size}: {parentData.intAllowFilesLimitToUpload} {CUSTOM_LABELS.MB}{CUSTOM_LABELS.file}
+						</p>
+					</div>
+				</div>
+			</div>
+			
+			<!--displaying uploaded files-->
+			<template if:true={state.bolFilesSelected}>
+				<lightning-modal-body>
+					<div class="slds-badge customize-badge-color">
+						<!--{data.intSelectedFilesToUpload} {CUSTOM_LABELS.of} {parentData.intAllowFilesToUpload}
+						{CUSTOM_LABELS.Files_Upload} -->
+						{data.intSelectedFilesToUpload} {CUSTOM_LABELS.Files_Upload}
+					</div>
+					<div class=" slds-scrollable">
+						<div for:each={data.selectedFilesToUpload} for:item="attachment" key={attachment.Id}
+							class="flexcont slds-m-top_xx-small selectedfile-style">
+							<div class="slds-truncate attachmenticon-style" title={CUSTOM_LABELS.File_Icon} >
+								<lightning-icon icon-name={attachment.icon} alternative-text={CUSTOM_LABELS.Attachment}
+									title={CUSTOM_LABELS.Attachment}></lightning-icon>
+							</div>
+							<div class=" slds-text-align_left attachmentname-style"  title={attachment.name}><span
+									class="slds-truncate slds-text-align_left attachmentalign-style">{attachment.name}</span></div>
+							<div if:true={attachment.bolUpload} class="slds-truncate attachmentupload-style" >
+								<lightning-progress-ring title={attachment.spinnerTitle}
+									value={attachment.progressIndicator} variant={attachment.progressVariant}>
+								</lightning-progress-ring>
+							</div>
+							<!--div if:true={attachment.bolCancel} class="slds-truncate attachmentcancel-style">
+								<button class="slds-button slds-button_icon btndelete" title={CUSTOM_LABELS.Cancel}
+									onclick={removeFileForUpload} data-filename={attachment.name} data-strfilename={attachment.strFileName}>
+									<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 160 160"
+										class="cancelsvg-style">
+										<path data-id="delete" data-name="delete"
+											d="M4514,164a16,16,0,0,1-16-16V70a6.006,6.006,0,0,1,6-6h96a6.006,6.006,0,0,1,6,6v78a16,16,0,0,1-16,16Zm48-19h13V89h-13Zm-34,0h13V89h-13Zm37-95h-83a5,5,0,0,1-5-5V32a5,5,0,0,1,5-5h42V19a16,16,0,0,1,16-16h25a16,16,0,0,1,16,16v8h41a5,5,0,0,1,5,5V45a5,5,0,0,1-5,5Zm2-23V19.42a4,4,0,0,0-4-4h-21a4,4,0,0,0-4,4V27Z"
+											transform="translate(-4477 -2.999)">
+									</svg>
+								</button>
+							</div-->
+						</div>
+					</div>
+				</lightning-modal-body>
+				<!--div if:true={bolShowFooter} class="footer-btn">
+					<input type="button" value={CUSTOM_LABELS.Upload_File} class="primarybtn color-1"
+						onclick={handleFileUpload} />
+					<input type="button" value={CUSTOM_LABELS.Cancel} class="primarybtn color-3"
+						onclick={cancelFileUpload} />
+				</div-->
+			</template>
+		</div>
+	</article>
+</template>

@@ -1,0 +1,348 @@
+/* permission set configuration */
+.padge-section .slds-pill {
+    background: #ECECF0;
+    color: #4d4d4d;
+    padding: 5px 12px;
+    border-radius: 33px;
+}
+
+.padge-section .slds-listbox_selection-group .slds-listbox {
+    gap: 5px;
+}
+
+
+/*Manage Filetranz Jobs*/
+.search-field_section .slds-input {
+    border: 1px solid #4d4d4d45 !important;
+    width: 100%;
+    font-family: "Poppins-Regular";
+    font-size: 12px;
+}
+
+.input-search-field_section .slds-input_faux {
+    border: 1px solid #4d4d4d45;
+    background: transparent;
+}
+
+.input-search-field_section .slds-input {
+    border: 1px solid #4d4d4d45;
+    background: transparent;
+}
+
+.input-search-field_section .slds-textarea {
+    border: 1px solid #4d4d4d45;
+    background: transparent;
+}
+
+.select-field-section .slds-path__nav .select-field-section .slds-is-active {
+    background: #3C5BB4 !important;
+}
+
+.select-field-section .slds-path__nav .select-field-section .slds-is-active:first-child:before,
+.select-field-section .slds-path__nav .select-field-section .slds-is-active:first-child:after {
+    background: #3C5BB4 !important;
+}
+
+.select-field-section .slds-path__nav .select-field-section .slds-is-incomplete {
+    background: #D9D9D9 !important;
+}
+
+.select-field-section .slds-path__nav .select-field-section .slds-is-incomplete:before,
+.select-field-section .slds-path__nav .select-field-section .slds-is-incomplete:after {
+    background: #D9D9D9 !important;
+}
+
+.dropdown-custom .slds-dropdown_fluid{
+    height: 188px;
+    overflow-y: scroll;
+}
+
+/* alert page */
+.slds-theme_warning,
+.slds-theme--warning {
+    border-bottom: #DD7A01;
+}
+
+.slds-theme_alert-texture,
+.slds-theme--alert-texture {
+    background-image: none;
+}
+
+.slds-theme_warning .slds-theme--warning {
+    text-align: left;
+    padding: 10px 25px;
+}
+
+.slds-modal_prompt .slds-modal__footer,
+.slds-modal--prompt .slds-modal__footer {
+    text-align: right;
+    box-shadow: none;
+}
+
+.slds-theme_default,
+.slds-theme--default {
+    padding: 10px 24px;
+}
+
+.customize-footer .slds-button_brand {
+    padding: 0 30px 15px 30px;
+}
+
+.customize-footer .slds-modal_prompt .slds-modal__content,
+.customize-footer .slds-modal--prompt .slds-modal__content {
+    padding: 0;
+}
+
+/* schedule filetranz job */
+.radio-button-custom fieldset {
+    /* display: flex;
+    align-items: center; */
+    font-family: "Poppins-Regular"
+
+}
+
+.radio-button-custom .slds-radio_button-group {
+    border-radius: 45px;
+    padding: 2px;
+    /* background-color: #3a59af; */
+    border: 1px solid #4d4d4d70;
+    margin-top: 10px;
+    height: 37.5px;
+}
+
+.radio-button-custom .slds-radio_button:first-child>.slds-radio_faux,
+.radio-button-custom .slds-radio_button:first-child>.slds-radio--faux,
+.radio-button-custom .slds-radio_button:first-child>.slds-radio_button__label,
+.radio-button-custom .slds-radio_button:first-child>.slds-radio--button__label,
+.radio-button-custom .slds-radio--button:first-child>.slds-radio_faux,
+.radio-button-custom .slds-radio--button:first-child>.slds-radio--faux,
+.radio-button-custom .slds-radio--button:first-child>.slds-radio_button__label,
+.radio-button-custom .slds-radio--button:first-child>.slds-radio--button__label {
+    border-radius: 43px;
+    background: none;
+    color: #4d4d4d;
+    font-weight: 500;
+    border: 0;
+}
+
+.radio-button-custom .slds-radio_button [type=radio]:checked+.slds-radio_faux,
+.radio-button-custom .slds-radio_button [type=radio]:checked+.slds-radio--faux,
+.radio-button-custom .slds-radio_button [type=radio]:checked~.slds-radio_faux,
+.radio-button-custom .slds-radio_button [type=radio]:checked~.slds-radio--faux,
+.radio-button-custom .slds-radio_button [type=radio]:checked+.slds-radio_button__label,
+.radio-button-custom .slds-radio_button [type=radio]:checked+.slds-radio--button__label,
+.radio-button-custom .slds-radio--button [type=radio]:checked+.slds-radio_faux,
+.radio-button-custom .slds-radio--button [type=radio]:checked+.slds-radio--faux,
+.radio-button-custom .slds-radio--button [type=radio]:checked~.slds-radio_faux,
+.radio-button-custom .slds-radio--button [type=radio]:checked~.slds-radio--faux,
+.radio-button-custom .slds-radio--button [type=radio]:checked+.slds-radio_button__label,
+.radio-button-custom .slds-radio--button [type=radio]:checked+.slds-radio--button__label {
+    background-color: #3a59af;
+    border-radius: 43px;
+    color: #fff;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.radio-button-custom .slds-radio_button+.slds-radio_button,
+.radio-button-custom .slds-radio_button+.slds-radio--button,
+.radio-button-custom .slds-radio--button+.slds-radio_button,
+.radio-button-custom .slds-radio--button+.slds-radio--button {
+    border-left: 0;
+    border-radius: 43px;
+}
+
+.radio-button-custom .slds-button:focus {
+    box-shadow: none;
+}
+
+.radio-button-custom .slds-radio_button:last-child>.slds-radio_faux,
+.radio-button-custom .slds-radio_button:last-child>.slds-radio--faux,
+.radio-button-custom .slds-radio_button .slds-button_last>.slds-radio_faux,
+.radio-button-custom .slds-radio_button .slds-button--last>.slds-radio--faux,
+.radio-button-custom .slds-radio_button:last-child>.slds-radio_button__label,
+.radio-button-custom .slds-radio_button:last-child>.slds-radio--button__label,
+.radio-button-custom .slds-radio--button:last-child>.slds-radio_faux,
+.radio-button-custom .slds-radio--button:last-child>.slds-radio--faux,
+.radio-button-custom .slds-radio--button .slds-button_last>.slds-radio_faux,
+.radio-button-custom .slds-radio--button .slds-button--last>.slds-radio--faux,
+.radio-button-custom .slds-radio--button:last-child>.slds-radio_button__label,
+.radio-button-custom .slds-radio--button:last-child>.slds-radio--button__label {
+    border-radius: 43px;
+    background: none;
+    color: #4d4d4d;
+    font-weight: 500;
+    border: 0;
+}
+
+.radio-button-custom .slds-radio_button [type=radio]:focus+.slds-radio_faux,
+.radio-button-custom .slds-radio_button [type=radio]:focus+.slds-radio--faux,
+.radio-button-custom .slds-radio_button [type=radio]:focus~.slds-radio_faux,
+.radio-button-custom .slds-radio_button [type=radio]:focus~.slds-radio--faux,
+.radio-button-custom .slds-radio_button [type=radio]:focus+.slds-radio_button__label,
+.radio-button-custom .slds-radio_button [type=radio]:focus+.slds-radio--button__label,
+.radio-button-custom .slds-radio--button [type=radio]:focus+.slds-radio_faux,
+.radio-button-custom .slds-radio--button [type=radio]:focus+.slds-radio--faux,
+.radio-button-custom .slds-radio--button [type=radio]:focus~.slds-radio_faux,
+.radio-button-custom .slds-radio--button [type=radio]:focus~.slds-radio--faux,
+.radio-button-custom .slds-radio--button [type=radio]:focus+.slds-radio_button__label,
+.radio-button-custom .slds-radio--button [type=radio]:focus+.slds-radio--button__label {
+    box-shadow: none;
+}
+
+/* storage configuration */
+.slds-has-error .slds-form-element__help {
+    font-family: poppins;
+    font-size: 12px;
+}
+
+.input-border-color label {
+    color: #3a59af;
+    font_style: italic;
+}
+
+.label-style .slds-form-element__label {
+    padding: 3px 0;
+    color: #3a59af;
+    font-family: "Poppins-Regular";
+    font_style: italic;
+}
+
+.label-style .slds-input,
+.label-style .slds-input_faux {
+    border: 1px solid #4d4d4d45;
+    font-size: 12px;
+    font-family: "Poppins-Regular";
+}
+
+.padding .slds-input {
+    padding: 0px 10px;
+}
+
+.label-style .slds-dropdown {
+    border: none;
+    height: 110px;
+    z-index: 10 !important;
+}
+
+.label-style .slds-dropdown-trigger_click.slds-is-open .slds-dropdown,
+.label-style .slds-dropdown-trigger--click.slds-is-open .slds-dropdown {
+    border: none;
+    height: 110px;
+    z-index: 10 !important;
+}
+
+/* Org wide Configuration */
+.dualList {
+    position: relative;
+}
+
+.dualList span.slds-form-element__label {
+    /*label theme changes*/
+    background: #3a59af;
+    padding: 6px 8px;
+    width: 136px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    color: #fff;
+    ;
+    font-size: 12px !important;
+    margin-left: 0 !important;
+    margin-bottom: 0px;
+    font-family: "Poppins-Regular" !important;
+}
+
+.slds-media__body,
+.slds-media__body>:last-child {
+    font-size: 12px;
+}
+
+.slds-dueling-list__column lightning-button-icon:first-child {
+    margin-top: 36px !important;
+}
+
+
+/*button top space*/
+.slds-dueling-list__column lightning-button-icon .slds-button_icon {
+    border: 1px solid #747474 !important
+}
+
+.slds-dueling-list__column .slds-button:first-of-type {
+    margin-top: 0.8rem
+}
+
+/* top space for button*/
+.slds-dueling-list__column .slds-button {
+    margin: 1rem
+}
+
+/* space around the duel arrow button*/
+.customize-dropdown-size .slds-dropdown-trigger .slds-dropdown {
+    height: 100px;
+    /* max-width: 100% !important;
+    min-width: 100% !important; */
+}
+.customize-dropdown-size .slds-dropdown_fluid{
+    min-width: 120px !important;
+}
+
+.customize-dropdown-size .slds-input_faux {
+    border: 1px solid #4d4d4d33;
+    border-radius: 5px;
+}
+
+.customize-dropdown-size .slds-input {
+    border: 1px solid #4d4d4d33;
+    border-radius: 5px;
+}
+
+.customize-dropdown-size .slds-dropdown {
+    border: 1px solid #4d4d4d33;
+}
+
+.customize-dropdown-size .slds-dueling-list__options,
+.customize-dropdown-size .slds-picklist__options {
+    border: 1px solid #4d4d4d45;
+}
+
+/* common heading */
+h1.title {
+    font-family: "Poppins-Regular";
+    font-size: 1.3rem;
+}
+
+/* .innerTitle, p{
+    font-family:"poppins";
+} */
+.header-shadow {
+    background: #fff;
+    /* position: sticky; */
+    border-radius: 20px 20px 0 0;
+    top: 0;
+    /* z-index: 10; */
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+/* accounts */
+.navigation_custom_style .slds-nav-vertical__item:hover:before,
+.navigation_custom_style .slds-nav-vertical__item.slds-is-active:before {
+    background-color: #E9ECF5;
+}
+
+.primarybtn.color-1 .primarybtn.color-2 .primarybtn.color-3 {
+    font-family: "Poppins-Regular";
+}
+
+.resptbl {
+    font-family: "Poppins-Regular" !important;
+}
+
+.resptbl table th {
+    font-family: "Poppins-Regular" !important;
+    font-weight: 500;
+}
+
+/* add files */
+.label-style .slds-nav-vertical__action {
+    font-family: "Poppins-Regular";
+}

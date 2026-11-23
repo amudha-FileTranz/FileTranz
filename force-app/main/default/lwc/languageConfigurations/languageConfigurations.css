@@ -1,0 +1,176 @@
+@font-face {
+    font-family: "Poppins-Regular";
+    src: url("/resource/font_style/Poppins-Regular.ttf") format("TrueType");
+}
+
+@font-face {
+    font-family: "Poppins-Medium";
+    src: url("/resource/font_style/Poppins-Medium.ttf") format("TrueType");
+}
+@font-face {
+    font-family: "Poppins-MediumItalic";
+    src: url("/resource/font_style/Poppins-MediumItalic.ttf") format("TrueType");
+}
+@font-face {
+    font-family: "Poppins-SemiBold";
+    src: url("/resource/font_style/Poppins-SemiBold.ttf") format("TrueType");
+}
+@font-face {
+    font-family: "Poppins-SemiBoldItalic";
+    src: url("/resource/font_style/Poppins-SemiBoldItalic.ttf") format("TrueType");
+}
+@font-face {
+    font-family: "Poppins-Bold";
+    src: url("/resource/font_style/Poppins-Bold.ttf") format("TrueType");
+}
+@font-face {
+    font-family: "Poppins-BoldItalic";
+    src: url("/resource/font_style/Poppins-BoldItalic.ttf") format("TrueType");
+}
+
+
+h1.title {
+    font-family: "Poppins-Bold";
+    font-size: 1.3rem;
+    color: #000;
+}
+
+h2.title {
+    font-family: "Poppins-Bold";
+    font-size: 1.3rem;
+    color: #000;
+}
+h2.langtitle {
+    font-family: "Poppins-Regular";
+    font-size: 16px;
+    color: #fff;
+    padding: 6px 0;
+}
+p{
+    font-family: "Poppins-Regular";
+}
+.pageHeaderbg {
+    padding: 4px 12px;
+    border: 0;
+    box-shadow: none;
+    background: #36347d;
+    border-radius: 0;
+}
+.transbg{
+    /* background: #Fdfdfd;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px; */
+}
+hr {
+    margin: 4px 0;
+    border-top: 1px solid #B9B9B9;
+}
+
+.foldicon {
+    width: 120px;
+    position: relative;
+    margin: 0 auto;
+}
+.foldicon img{
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.foldicon .chkIcon {
+    width: 18px;
+    position: absolute;
+    bottom: 8px;
+    right: 7px;
+}
+
+.btndispflex {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 150px);
+    justify-content: space-between;
+    grid-gap: 20px;
+}
+
+.foldercont {
+    width: 150px;
+    text-align: center;
+}
+
+.transpBtn {
+    background: transparent;
+    border: none;
+    margin-bottom: 25px;
+}
+
+button.transpBtn:disabled {
+    opacity: 0.5;
+}
+
+button.primarybtn:disabled {
+    opacity: 0.5;
+}
+
+.primarybtn {
+    min-width: 106px;
+    height: 36px;
+    background-size: 300% 100%;
+    border: none;
+    border-radius: 7px;
+    font-family: "Poppins-Medium";
+    font-size: 0.84rem;
+    color: #fff;
+    padding: 8px 20px;
+ 
+}
+
+
+.primarybtn.color-1 {
+    background: #3c5bb4;
+    border: 1px solid #3c5bb4;
+    font-family: "Poppins-Regular";
+}
+
+.greycont {
+    background: #F7F7F7 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border: 1px solid #E3DADA;
+    border-radius: 6px;
+    width: 100%;
+}
+
+@media only screen and (max-width:420px) {
+    .btndispflex {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 105px);
+        justify-content: space-between;
+        grid-gap: 0px;
+    }
+    .foldercont {
+        width: 105px;
+        text-align: center;
+    }
+    .transpBtn {
+        padding: 0
+    }
+}
+.install-style{
+    align-items: center;
+}
+.avail-style{
+    color: white;
+}
+.installall-style{
+    text-align: end;
+}
+.alllanguage-style{
+    display: inline-block;
+     margin-right: 15px; 
+     font-family:'Poppins-Medium'; 
+     color: #4d4d4d;
+}
+/* Accessibility: visible keyboard focus on action buttons */
+.primarybtn:focus-visible,
+.secondaryBtn:focus-visible {
+    outline: 2px solid #3C5BB4;
+    outline-offset: 2px;
+}

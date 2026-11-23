@@ -1,0 +1,623 @@
+@font-face {
+    font-family: "Poppins-Regular";
+    src: url("/resource/font_style/Poppins-Regular.ttf") format("TrueType");
+}
+
+@font-face {
+    font-family: "Poppins-Medium";
+    src: url("/resource/font_style/Poppins-Medium.ttf") format("TrueType");
+}
+
+@font-face {
+    font-family: "Poppins-MediumItalic";
+    src: url("/resource/font_style/Poppins-MediumItalic.ttf") format("TrueType");
+}
+
+@font-face {
+    font-family: "Poppins-SemiBold";
+    src: url("/resource/font_style/Poppins-SemiBold.ttf") format("TrueType");
+}
+
+@font-face {
+    font-family: "Poppins-SemiBoldItalic";
+    src: url("/resource/font_style/Poppins-SemiBoldItalic.ttf") format("TrueType");
+}
+
+@font-face {
+    font-family: "Poppins-Bold";
+    src: url("/resource/font_style/Poppins-Bold.ttf") format("TrueType");
+}
+
+@font-face {
+    font-family: "Poppins-BoldItalic";
+    src: url("/resource/font_style/Poppins-BoldItalic.ttf") format("TrueType");
+}
+
+th,
+td {
+    text-align: center;
+}
+
+td:nth-child(2) {
+    text-align: left !important;
+}
+
+.white-utility-icon {
+    --sds-c-icon-color-foreground-default: #ffffff;
+}
+
+.slds-table tbody tr td a {
+    display: inline-block;
+    width: 90%;
+    white-space: break-spaces;
+}
+
+.tabwidth {
+    width: 80%;
+    max-width: 100%;
+    margin: 0 auto;
+    ;
+}
+
+.dispflex {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.w30 {
+    width: 30%
+}
+
+.slds-list_inline,
+.slds-list--inline {
+    align-items: center;
+}
+
+.mbbtn {
+    display: none
+}
+
+.dskbtn {
+    display: block;
+}
+
+.modelContent4 {
+    background: #F9F9F9;
+    border-radius: 0.5rem;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.modelContent5 {
+    background: #F9F9F9;
+    border-radius: 0.5rem;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    opacity: 80%;
+}
+
+.modelContent {
+    background: #F9F9F9;
+    border-radius: 0.5rem;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.mcW60 {
+    width: 100%;
+    max-width: 80%;
+}
+
+.slds-file-selector__button {
+    width: 100%;
+}
+
+.pdTitle .slds-card__header {
+    border: 1px solid blue;
+    padding: 0 !important;
+}
+
+h2.poptitle {
+    font-family: "Poppins-SemiBold";
+    font-size: 1.2rem;
+    color: #000;
+    text-transform: capitalize;
+}
+
+.btndownload {
+    background: transparent;
+    border: 1px solid #e5e5e5;
+    width: 24px;
+    height: 24px;
+    padding: 5px;
+    fill: #4C73CD;
+    transition: 0.5s all
+}
+
+.btndownload:hover {
+    fill: #fff;
+    background: #4C73CD
+}
+
+.btndelete {
+    background: transparent;
+    border: 1px solid #e5e5e5;
+    width: 24px;
+    height: 24px;
+    padding: 5px;
+    fill: red;
+    transition: 0.5s all
+}
+
+.btndelete:hover {
+    fill: #fff;
+    background: red
+}
+
+.navbtn {
+    background: transparent;
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+    width: 32px;
+    height: 32px;
+    padding: 5px;
+    fill: #3C5BB4;
+    transition: 0.5s all
+}
+
+.navbtn:hover {
+    fill: #fff;
+    background: #3C5BB4
+}
+
+.navbtn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    color: #333333 !important;
+    fill: #fff;
+    background: #ccc;
+}
+
+.navbtn:last-child {
+    margin-right: 6px;
+}
+
+.saveBtn {
+    background: #969b00;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 3px;
+}
+
+.saveBtn svg {
+    fill: #ffffff
+}
+
+/* responsive table*/
+
+.resptbl table {
+    border: 0px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.resptbl table tr {
+    padding: .35em;
+    transition: 0.3s all;
+}
+
+.resptbl table tr:hover {
+    background-color: #E9ECF5;
+}
+
+.resptbl table th,
+.resptbl table td {
+    padding: .625em;
+    text-align: center;
+}
+
+.resptbl .slds-th__action:focus,
+.resptbl .slds-th__action:hover {
+    background: transparent
+}
+
+.resptbl table tr:nth-child(even) {
+    background-color: #f9fbfc;
+}
+
+.resptbl table tr:hover:nth-child(even) {
+    background-color: #E9ECF5;
+}
+
+.resptbl table th {
+    font-size: .87em;
+    text-transform: uppercase;
+    background: #4C73CD !important;
+    border-bottom: 1px solid #e9ebec;
+    color: #fff;
+    padding: 0.2rem;
+    border-right: 1px solid #fff;
+    font-family: "Poppins-Medium" !important;
+}
+
+.resptbl table th:last-child {
+    border-right: 0
+}
+
+.txtCenter {
+    text-align: center;
+}
+
+.txtCenter lightning-input {
+    text-align: left;
+}
+
+.previewIframe::-webkit-scrollbar {
+    display: none;
+}
+
+.previewIframe {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.previewIframe {
+    width: 850px;
+    height: 300px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 10px;
+}
+
+.overflow-y-none {
+    overflow-y: hidden !important;
+}
+
+@media screen and (min-width:1800px) {
+    .previewIframe {
+        width: 100%;
+        height: 600px;
+        border: none;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        border-radius: 10px;
+    }
+
+    .overflow-y-none {
+        overflow-y: hidden !important;
+    }
+}
+
+
+
+
+@media screen and (max-width: 600px) {
+    .resptbl table {
+        border: 0;
+    }
+
+    .resptbl table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+        display: none;
+    }
+
+    .resptbl table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+    }
+
+    .resptbl table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: center;
+    }
+
+    .resptbl table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .resptbl table td:last-child {
+        border-bottom: 0;
+    }
+
+    .txtCenter lightning-input {
+        text-align: right;
+    }
+
+}
+
+.style-message {
+    color: red;
+    margin: 10px;
+}
+
+.filesPanelWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.external-files {
+    align-items: center;
+    justify-content: left;
+}
+
+.save-img {
+    margin-right: 0;
+}
+
+.modal-body {
+    height: 340px;
+    border: 1px solid #e9ebec;
+    border-radius: 6px;
+    padding-bottom: 6px;
+    background: #fff
+}
+
+.modal-thead {
+    position: sticky;
+    top: 0;
+    z-index: 1
+}
+
+.modal-th1 {
+    text-align: center;
+    width: 5%
+}
+
+.modal-th2 {
+    width: 35%;
+}
+
+.modal-th3 {
+    width: 10%;
+}
+
+.modal-th4 {
+    justify-content: center;
+}
+
+.modal-th5 {
+    width: 10%;
+    justify-content: center;
+}
+
+.modal-th6 {
+    width: 20%;
+    justify-content: center;
+}
+
+.modal-th7 {
+    width: 10%;
+    padding-left: 10px;
+}
+
+.modal-td1 {
+    justify-content: left;
+}
+
+.modal-td2 {
+    width: 90%;
+}
+
+.modal-td3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
+    padding: 4px 0;
+}
+
+.modal-td4 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.modal-td5 {
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+}
+
+.modal-td6 {
+    width: 80%;
+    margin-right: 10px;
+}
+
+.modal-td7 {
+    margin-top: 2px;
+}
+
+.modal-td8 {
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.modal-td9 {
+    text-align: center;
+}
+
+.modal-td10 {
+    text-align: center;
+    justify-content: center;
+}
+
+.modal-td11 {
+    margin-left: 1px;
+}
+
+.modal-foot1 {
+    overflow: hidden;
+}
+
+.modal-foot2 {
+    padding-top: 0.2em;
+}
+
+.modal-foot3 {
+    color: #19699f;
+}
+
+.modal-foot4 {
+    margin-left: 4px;
+    margin-top: 5px;
+    margin-right: 3px;
+}
+
+.modal-foot5 {
+    margin-left: 7px;
+    margin-top: 4px;
+}
+
+.modal-foot6 {
+    margin-left: 6px;
+    margin-top: 4px;
+    margin-right: 3px;
+}
+
+.primarybtn {
+    border-radius: 7px;
+    font-family: "Poppins-Regular";
+    font-size: 13px;
+    color: #fff;
+    border: 1px solid #fff;
+    background: none;
+    padding: 8px 25px;  
+      background-size: 300% 100%;
+      -moz-transition: all .4s ease-in-out;
+      -o-transition: all .4s ease-in-out;
+      -webkit-transition: all .4s ease-in-out;
+      transition: all .4s ease-in-out;
+      margin-right: 10px;
+  }
+
+.primarybtn.color-1 {
+    background: #3c5bb4;
+    border: 1px solid #3c5bb4;
+    font-family: "Poppins-Regular";
+}
+
+.secondaryBtn {
+    border-radius: 7px;
+    font-family: "Poppins-Regular";
+    font-size: 14px;
+    color: #4d4d4d;
+    border: 1px solid #4d4d4d;
+    background: none;
+    padding: 8px 25px;
+  }
+
+@media screen and (max-width:768px) {
+    .dispflexbox>div {
+        width: 100%;
+        flex-basis: 100%;
+    }
+}
+
+@media screen and (max-width:1080px) {
+ 
+}
+
+@media screen and (max-width: 1024px) {
+
+    .resptbl table {
+        border: 0;
+    }
+
+    .resptbl table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    .resptbl table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+    }
+
+    .resptbl table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
+    }
+
+    .resptbl table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .resptbl table td:last-child {
+        border-bottom: 0;
+    }
+
+}
+
+@media screen and (max-width:900px) {
+    .w30 {
+        width: 100%;
+    }
+
+    .mbbtn {
+        display: block;
+        width: 15%;
+        text-align: center;
+    }
+
+    .dskbtn {
+        display: none;
+        ;
+    }
+
+    .resptbl table thead {
+        display: none;
+    }
+
+    .mcW60 {
+        width: auto;
+        max-width: auto;
+    }
+}
+p{
+    font-family: "Poppins-Regular";
+}
+.delete-message{
+    color: #db1c29;
+    text-align: left;
+    font-family:"Poppins-Medium";
+    font-size: 21px;
+}
+.confirmation-style{
+    text-align:end; 
+    padding-bottom:20px;
+  }
+/* Accessibility: visible keyboard focus on action buttons */
+.primarybtn:focus-visible,
+.secondaryBtn:focus-visible {
+    outline: 2px solid #3C5BB4;
+    outline-offset: 2px;
+}

@@ -1,0 +1,457 @@
+<!--
+ * Purpose : Screen to upload file to external storage and access those files. 
+ * Author  : Giri
+-->
+
+<template>
+	<!-- Loader -->
+	<template if:true={parentState.bolSpinner}>
+		<lightning-spinner alternative-text={CUSTOM_LABELS.Loading} size="small"></lightning-spinner>
+	</template>
+
+	<template if:true={uploadFilesShow}>
+		<template if:true={parentData.bolActiveStorageAvailable}>
+			<div class="filesPanelWrap">
+				<div>
+					<c-upload-files record-id={recordId} parent-state={parentState} parent-data={parentData}
+						onhandleuploadfile={handleFileUplaod} onhandleaddfile={handleAddFile}
+						onhandleselectedfiles={handleSelectedFiles}></c-upload-files>
+				</div>
+				<article class="slds-tile">
+					<c-view-files record-id={recordId} parent-state={parentState} parent-data={parentData}
+						onhandleviewallfile={handleViewAll}
+						onhandleprevdeldownload={handlePrevDelDownloadChild}></c-view-files>
+				</article>
+			</div>
+		</template>
+		<template if:true={parentState.bolShowMessage}>
+			<lightning-card>
+				<p class="style-message "><b>{parentData.strMessage}</b></p>
+			</lightning-card>
+		</template>
+	</template>
+	<!--Add file child component-->
+	<template if:true={parentState.bolShowAddFile}>
+		<div class="pdTitle">
+			<!-- Modal/Popup Box LWC starts here -->
+			<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+				aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+				<div class="slds-modal__container mcW60">
+					<!-- Modal/Popup Box LWC body starts here -->
+					<div class="modelContent">
+						<c-add-files arr-selected-files={parentData.arrSelectedFilesToUpload} onaddfiles={addFiles}
+							arr-accepted-formats={parentData.arrAcceptedFormats}
+							onclosepopup={closePopup} object-name={objectApiName}></c-add-files>
+					</div>
+				</div>
+			</section>
+		</div>
+		<div class="slds-backdrop slds-backdrop_open"></div>
+	</template>
+	<!-- View all modal start - View all UI -->
+	<template if:true={parentState.isShowModal}>
+		<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+			aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container tabwidth">
+				<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close"
+					onclick={hideModalBox}>
+					<svg class="slds-icon slds-icon_small" focusable="false" data-key="close" aria-hidden="true"
+						viewBox="0 0 52 52" part="icon">
+						<g>
+							<path
+								d="M31 25.4l13-13.1c.6-.6.6-1.5 0-2.1l-2-2.1c-.6-.6-1.5-.6-2.1 0L26.8 21.2c-.4.4-1 .4-1.4 0L12.3 8c-.6-.6-1.5-.6-2.1 0l-2.1 2.1c-.6.6-.6 1.5 0 2.1l13.1 13.1c.4.4.4 1 0 1.4L8 39.9c-.6.6-.6 1.5 0 2.1l2.1 2.1c.6.6 1.5.6 2.1 0L25.3 31c.4-.4 1-.4 1.4 0l13.1 13.1c.6.6 1.5.6 2.1 0L44 42c.6-.6.6-1.5 0-2.1L31 26.8c-.4-.4-.4-1 0-1.4z">
+							</path>
+						</g>
+					</svg>
+				</button>
+
+				<div class="">
+					<div if:true={parentState.bolSpinner}>
+						<lightning-spinner alternative-text={CUSTOM_LABELS.Loading} size="Large"></lightning-spinner>
+					</div>
+					<!-- modal header start -->
+					<div class={dynamicModal}>
+						<div class="slds-p-vertical_small slds-m-horizontal_small">
+							<div class="dispflex slds-m-right_xx-small">
+								<div class="dispflex w30 external-files">
+									<h2 id="modal-heading-01"
+										class="slds-text-heading_small slds-hyphenate slds-p-left_xx-small poptitle">
+										<b>{CUSTOM_LABELS.External_Files}</b>
+									</h2>
+								</div>
+								<div class="dispflex search-field_section">
+									<lightning-input name="enter-search" onchange={handleSearch}
+										value={parentData.strSearchKey} placeholder={CUSTOM_LABELS.Search_Files}
+										variant="label-hidden" type="search"></lightning-input>
+									<template if:true={parentState.bolSave}>
+										<button
+											class="slds-button slds-button_icon btnicn saveBtn slds-float_right slds-m-left_small"
+											title={CUSTOM_LABELS.Save} onclick={handleNameSave} data-type="MainSave">
+											<svg class="slds-button__icon slds-button__icon_left save-img"
+												focusable="false" data-key="save" aria-hidden="true" viewBox="0 0 52 52"
+												part="icon">
+												<g>
+													<path
+														d="M37.1 4v13.6c0 1-.8 1.9-1.9 1.9H13.9c-1 0-1.9-.8-1.9-1.9V4H8C5.8 4 4 5.8 4 8v36c0 2.2 1.8 4 4 4h36c2.2 0 4-1.8 4-4V11.2L40.8 4h-3.7zm7 38.1c0 1-.8 1.9-1.9 1.9H9.9c-1 0-1.9-.8-1.9-1.9V25.4c0-1 .8-1.9 1.9-1.9h32.3c1 0 1.9.8 1.9 1.9v16.7z">
+													</path>
+													<path
+														d="M24.8 13.6c0 1 .8 1.9 1.9 1.9h4.6c1 0 1.9-.8 1.9-1.9V4h-8.3l-.1 9.6z">
+													</path>
+												</g>
+											</svg>
+										</button>
+									</template>
+								</div>
+							</div>
+						</div>
+
+						<!-- modal body start -->
+						<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+							<template if:true={parentState.bolFiles}>
+								<div class="slds-scrollable modal-body">
+									<div class="resptbl">
+										<table>
+											<thead class="modal-thead">
+												<tr>
+													<th class="modal-th1">{CUSTOM_LABELS.S_No}</th>
+													<th class="modal-th2" scope="col">
+														<a class="slds-th__action slds-text-link_reset"
+															href="javascript:void(0);" role="button" tabindex="0"
+															onclick={sortRecs} name="strFileName">
+															{CUSTOM_LABELS.File_Name}
+															<lightning-icon icon-name="utility:up" size="xx-small"
+																if:true={sortingState.bolNameUp}
+																class="white-utility-icon slds-m-left_small"></lightning-icon>
+															<lightning-icon icon-name="utility:down" size="xx-small"
+																if:true={sortingState.bolNameDown}
+																class="white-utility-icon slds-m-left_small"></lightning-icon>
+														</a>
+													</th>
+													<th class="modal-th3" scope="col">
+														<a class="slds-th__action slds-text-link_reset modal-th4"
+															href="javascript:void(0);" role="button" tabindex="0"
+															onclick={sortRecs} name="strFileType">
+															{CUSTOM_LABELS.File_Type}
+															<lightning-icon icon-name="utility:up" size="xx-small"
+																if:true={sortingState.bolTypeUp}
+																class="white-utility-icon slds-m-left_small"></lightning-icon>
+															<lightning-icon icon-name="utility:down" size="x-small"
+																if:true={sortingState.bolTypeDown}
+																class="white-utility-icon slds-m-left_small"></lightning-icon>
+														</a>
+													</th>
+													<th class="modal-th5" scope="col">
+														<a class="slds-th__action slds-text-link_reset modal-th4"
+															role="button" tabindex="0" onclick={sortRecs}
+															name="dblSize">
+															{CUSTOM_LABELS.File_Size}
+															<lightning-icon icon-name="utility:up" size="xx-small"
+																if:true={sortingState.bolSizeUp}
+																class="white-utility-icon slds-m-left_small"></lightning-icon>
+															<lightning-icon icon-name="utility:down" size="xx-small"
+																if:true={sortingState.bolSizeDown}
+																class="white-utility-icon slds-m-left_small"></lightning-icon>
+														</a>
+													</th>
+													<th class="modal-th6" scope="col">
+														<a class="slds-th__action slds-text-link_reset modal-th4"
+															href="javascript:void(0);" role="button" tabindex="0"
+															onclick={sortRecs} name="LastModifiedDate">
+															{CUSTOM_LABELS.LAST_MODIFIED_DATE}
+															<lightning-icon icon-name="utility:up" size="xx-small"
+																if:true={sortingState.bolDateUp}
+																class="white-utility-icon slds-m-left_small"></lightning-icon>
+															<lightning-icon icon-name="utility:down" size="xx-small"
+																if:true={sortingState.bolDateDown}
+																class="white-utility-icon slds-m-left_small"></lightning-icon>
+														</a>
+													</th>
+													<th class="modal-th7" scope="col"
+														if:true={parentState.bolShowActions}>{CUSTOM_LABELS.ACTION}</th>
+												</tr>
+											</thead>
+											<tbody>
+												<template for:each={parentData.arrViewAllFiles} for:item="files">
+													<tr key={files.File_Name__c} onmouseleave={onRowHighlightRemove}
+														onmouseover={onRowHighlight} data-name={files.strName}>
+														<td data-label="S.No">
+															<p>{files.SNo}</p>
+														</td>
+														<td class="slds-text-align_left" data-label="File Name">
+															<div class="dispflex modal-td1">
+																<div class="modal-td2">
+																	<template if:false={files.bolEditField}>
+																		<div class="modal-td3">
+																			<a if:true={parentState.bolPreviewFile}
+																				onclick={handlePrevDelDownload}
+																				ondblclick={ondblfunct}
+																				data-filelocationurl={files.strFileURL}
+																				data-strid={files.strId}
+																				data-straction="Preview"
+																				data-invokingscreen="ViewAll"
+																				data-filetype={files.strFileType}
+																				title={files.strFileName}>{files.strFileName}</a>
+																			<p if:false={parentState.bolPreviewFile}
+																				class="slds-show_inline-block modal-td4"
+																				title={files.strFileName}>
+																				{files.strFileName}
+																			</p>
+																		</div>
+																	</template>
+																</div>
+																<template if:true={files.bolEditField}>
+																	<div
+																		class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right formlbl dispflex modal-td5">
+																		<div class="modal-td6">
+																			<lightning-input type="text" name="fileName"
+																				variant="label-hidden"
+																				value={files.strFileName}
+																				onchange={onfileNameChange}
+																				data-name={files.strName}
+																				data-filetype={files.strFileType}
+																				data-filename={files.strFileName}>
+																			</lightning-input>
+																		</div>
+																		<div>
+																			<template if:true={parentState.bolSave}>
+																				<button
+																					class="slds-button slds-button_icon btndownload"
+																					title={CUSTOM_LABELS.Save}
+																					onclick={handleNameSave}
+																					aria-label={CUSTOM_LABELS.Save}
+																					data-name={files.strName}
+																					data-type="RowSave">
+																					<svg focusable="false"
+																						data-key="save"
+																						aria-hidden="true"
+																						viewBox="0 0 52 52" part="icon">
+																						<g>
+																							<path
+																								d="M37.1 4v13.6c0 1-.8 1.9-1.9 1.9H13.9c-1 0-1.9-.8-1.9-1.9V4H8C5.8 4 4 5.8 4 8v36c0 2.2 1.8 4 4 4h36c2.2 0 4-1.8 4-4V11.2L40.8 4h-3.7zm7 38.1c0 1-.8 1.9-1.9 1.9H9.9c-1 0-1.9-.8-1.9-1.9V25.4c0-1 .8-1.9 1.9-1.9h32.3c1 0 1.9.8 1.9 1.9v16.7z">
+																							</path>
+																							<path
+																								d="M24.8 13.6c0 1 .8 1.9 1.9 1.9h4.6c1 0 1.9-.8 1.9-1.9V4h-8.3l-.1 9.6z">
+																							</path>
+																						</g>
+																					</svg>
+																				</button>
+																			</template>
+																			<template if:true={parentState.bolClear}>
+																				<button
+																					class="slds-button slds-button_icon btndelete"
+																					title={CUSTOM_LABELS.Clear}
+																					onclick={handleNameClear}
+																					data-name={files.strName}
+																					data-strid={files.strId}>
+																					<svg focusable="false"
+																						data-key="clear"
+																						aria-hidden="true"
+																						viewBox="0 0 52 52" part="icon">
+																						<g>
+																							<path
+																								d="M26 2C12.7 2 2 12.7 2 26s10.7 24 24 24 24-10.7 24-24S39.3 2 26 2zm4.9 24.8l7.8 7.8c.4.4.4 1 0 1.4l-2.8 2.8c-.4.4-1 .4-1.4 0L26.7 31c-.4-.4-1-.4-1.4 0l-7.8 7.8c-.4.4-1 .4-1.4 0L13.3 36c-.4-.4-.4-1 0-1.4l7.8-7.8c.4-.4.4-1 0-1.4l-7.9-7.9c-.4-.4-.4-1 0-1.4l2.8-2.8c.4-.4 1-.4 1.4 0l7.9 7.9c.4.4 1 .4 1.4 0l7.8-7.8c.4-.4 1-.4 1.4 0l2.8 2.8c.4.4.4 1 0 1.4l-7.8 7.8c-.3.4-.3 1 0 1.4z">
+																							</path>
+																						</g>
+																					</svg>
+																				</button>
+																			</template>
+																		</div>
+																	</div>
+																</template>
+																<div>
+																	<template if:true={parentState.bolEditFile}>
+																		<template if:true={files.bolShowEdit}>
+																			<button
+																				class="slds-button slds-button_icon btndownload slds-float_right modal-td7"
+																				title={CUSTOM_LABELS.EDIT}
+																				onclick={handleEdit}
+																				data-name={files.strName}
+																				data-strid={files.strId}>
+																				<svg xmlns="http://www.w3.org/2000/svg"
+																					width="18" height="22"
+																					viewBox="0 0 36 36">
+																					<path data-id="edit" data-name="edit"
+																						d="M4477.327,34.416a1.637,1.637,0,0,1-.281-1.38l2.24-9.524,16.208-16.33,8.844,8.741L4488.446,32.5l-9.715,2.324s-.061.006-.16.006A1.825,1.825,0,0,1,4477.327,34.416Zm19.856-29.087,3.535-3.536a2,2,0,0,1,2.828,0l6.652,6.652a2,2,0,0,1,0,2.828l-3.534,3.534Z"
+																						transform="translate(-4477 -1.208)" />
+																				</svg>
+																			</button>
+																		</template>
+																	</template>
+																</div>
+															</div>
+														</td>
+														<td data-label="File Type" class="modal-td8">{files.strFileType}
+														</td>
+														<td class="slds-text-align_left modal-td9"
+															data-label="File Size">{files.strSize}</td>
+														<td class="slds-text-align_center"
+															data-label="Last Modified Date">
+															<div class="dispflex modal-td10">
+																<lightning-formatted-text
+																	value={files.lastModifiedDate}>
+																</lightning-formatted-text>
+																&nbsp; &nbsp; &nbsp;
+															</div>
+														</td>
+														<td class="slds-text-align_center" data-label="Actions"
+															if:true={parentState.bolShowActions}>
+															<button class="slds-button slds-button_icon btndownload"
+																if:true={parentState.bolDownloadFile}
+																title={CUSTOM_LABELS.Download} data-straction="Download"
+																data-invokingscreen="ViewAll" data-strid={files.strId}
+																onclick={handlePrevDelDownload}>
+																<svg xmlns="http://www.w3.org/2000/svg" width="34.431"
+																	height="36.825" viewBox="0 0 36.431 38.825">
+																	<path data-id="Union_86" data-name="Union 86"
+																		d="M4479,36.825a2,2,0,0,1-2-2v-10.9a2,2,0,0,1,2-2h1.139l1.165,9.662a.815.815,0,0,0,.229.57.769.769,0,0,0,.553.236h24.257a.8.8,0,0,0,.784-.805l1.163-9.662h1.14a2,2,0,0,1,2,2v10.9a2,2,0,0,1-2,2Zm14.646-9.91L4483.259,15.95l3.041-3.157,5.522,5.507V0h4.585V18.3l5.3-5.507,3.358,3.157-10.115,10.966a1.533,1.533,0,0,1-.7.248A1.064,1.064,0,0,1,4493.645,26.915Z"
+																		transform="translate(-4476.999)" />
+																</svg>
+															</button>
+															<button class="slds-button slds-button_icon btndelete"
+																if:true={parentState.bolDeleteFile}
+																title={CUSTOM_LABELS.Delete} data-strid={files.strId}
+																onclick={handlePrevDelDownload}
+																data-invokingscreen="ViewAll" data-straction="Delete"
+																data-filename={files.strFileName} data-filetype={files.strFileType}>
+																<svg xmlns="http://www.w3.org/2000/svg" width="18"
+																	height="22" viewBox="0 0 160 160"
+																	class="modal-td11">
+																	<path data-id="exdelete" data-name="exdelete"
+																		d="M4514,164a16,16,0,0,1-16-16V70a6.006,6.006,0,0,1,6-6h96a6.006,6.006,0,0,1,6,6v78a16,16,0,0,1-16,16Zm48-19h13V89h-13Zm-34,0h13V89h-13Zm37-95h-83a5,5,0,0,1-5-5V32a5,5,0,0,1,5-5h42V19a16,16,0,0,1,16-16h25a16,16,0,0,1,16,16v8h41a5,5,0,0,1,5,5V45a5,5,0,0,1-5,5Zm2-23V19.42a4,4,0,0,0-4-4h-21a4,4,0,0,0-4,4V27Z"
+																		transform="translate(-4477 -2.999)" />
+																</svg>
+															</button>
+														</td>
+													</tr>
+												</template>
+											</tbody>
+										</table>
+										<div></div>
+									</div>
+								</div>
+							</template>
+						</div>
+						<!-- modal footer start-->
+						<div class="slds-m-around_small modal-foot1">
+							<div class="dispflex modal-foot2">
+								<div>
+									<div class="slds-list_inline slds-p-bottom_small">
+										<label class="slds-text-color_weak slds-p-horizontal_x-small"
+											for="recordsPerPage">{CUSTOM_LABELS.Page_Size}:</label>
+										<div class="slds-select_container">
+											<select class="slds-select" id="recordsPerPage"
+												onchange={handleRecordsPerPage}>
+												<template for:each={paginationData.arrPageSizeOptions}
+													for:item="option">
+													<option key={option} value={option}>{option}</option>
+												</template>
+											</select>
+										</div>
+										&nbsp;
+										<span
+											class="slds-m-left_small modal-foot3">{paginationData.intStartNumber}-{paginationData.intEndNumber}
+											&nbsp;{CUSTOM_LABELS.of}&nbsp;
+											{paginationData.intTotalRecords}&nbsp;{CUSTOM_LABELS.files}&nbsp;<b>|</b>&nbsp;{CUSTOM_LABELS.Page}&nbsp;
+											{paginationData.intPageNumber}&nbsp;
+											{CUSTOM_LABELS.of}&nbsp;{paginationData.intTotalPages}</span>&nbsp;
+									</div>
+								</div>
+								<!--PAGE NAVIGATION-->
+								<div>
+									<button class="slds-button slds-button_icon navbtn" title={CUSTOM_LABELS.First}
+										disabled={bolDisableFirst}
+										onclick={firstPage}>
+										<svg xmlns="http://www.w3.org/2000/svg" width="22" height="27"
+											viewBox="0 0 27 37" class="modal-foot4">
+											<path id="Union_87" data-name="Union 87"
+												d="M4481,13.5,4498,0V27ZM4476,27V0h3V27Z"
+												transform="translate(-4476)" />
+										</svg>
+									</button>
+									<button class="slds-button slds-button_icon navbtn" title={CUSTOM_LABELS.Previous}
+										disabled={bolDisableFirst}
+										onclick={previousPage}>
+										<svg xmlns="http://www.w3.org/2000/svg" width="17" height="27"
+											viewBox="0 0 27 37" class="modal-foot4">
+											<path id="Polygon_22" data-name="Polygon 22" d="M13.5,0,27,17H0Z"
+												transform="translate(0 27) rotate(-90)" />
+										</svg>
+									</button>
+									<button class="slds-button slds-button_icon navbtn" title={CUSTOM_LABELS.Next}
+										disabled={bolDisableLast}
+										onclick={nextPage}>
+										<svg xmlns="http://www.w3.org/2000/svg" width="17" height="27"
+											viewBox="0 0 27 37" class="modal-foot5">
+											<path id="Polygon_21" data-name="Polygon 21" d="M13.5,0,27,17H0Z"
+												transform="translate(17) rotate(90)" />
+										</svg>
+									</button>
+									<button class="slds-button slds-button_icon navbtn" title={CUSTOM_LABELS.last}
+										disabled={bolDisableLast}
+										onclick={lastPage}>
+										<svg xmlns="http://www.w3.org/2000/svg" width="22" height="27"
+											viewBox="0 0 22 32" class="modal-foot6">
+											<path id="Union_88" data-name="Union 88" d="M5,13.5,22,27V0ZM0,0V27H3V0Z"
+												transform="translate(22 27) rotate(180)" />
+										</svg>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open"></div>
+	</template>
+
+	<!-- modal start -->
+	<template if:true={parentData.bolShowPreviewModal}>
+		<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+			aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+			<div class="slds-modal__container">
+				<!-- modal header start -->
+				<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close"
+					onclick={hidePreviewModalBox}>
+					<lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+						size="small"></lightning-icon>
+					<span class="slds-assistive-text">Close</span>
+				</button>
+				<!-- modal body start -->
+				<div class="slds-modal__content slds-p-around_medium overflow-y-none signedurl-style" id="modal-content-id-2"
+					>
+					<iframe src={preSignedUrl} class="previewIframe slds-p-around_small" width="100%"
+						height="400px"></iframe>
+				</div>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open"></div>
+	</template>
+	<!-- modal end -->
+
+	<template if:true={bolDelete}>
+		<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+			aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container">
+				<!-- modal header start -->
+				<header class="slds-modal__header delete-message confirmdelete-style" >
+					<h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">
+						{CUSTOM_LABELS.Confirm_Delete}
+					</h2>
+				</header>
+				<!-- modal body start -->
+				<div class="slds-modal__content delete-info-message slds-p-horizontal_medium" id="modal-content-id-3">
+					<div class="dispflexbox">
+						<p class="slds-p-top_small">{CUSTOM_LABELS.Are_you_sure_you_want_to_delete_it}</p>
+					</div>
+					<div class="confirmation-style">
+						<input type="submit" class="primarybtn color-1" value={CUSTOM_LABELS.Yes}
+							onclick={handleConfirmDelete} />
+						<input type="button" class="secondaryBtn" value={CUSTOM_LABELS.No} onclick={hideDeleteModal} />
+					</div>
+				</div>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open popup" id="popup2"></div>
+	</template>
+</template>

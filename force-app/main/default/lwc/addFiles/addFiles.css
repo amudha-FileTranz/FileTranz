@@ -1,0 +1,138 @@
+@font-face {
+    font-family: "Poppins-Regular";
+    src: url("/resource/font_style/Poppins-Regular.ttf") format("TrueType");
+}
+
+@font-face {
+    font-family: "Poppins-Medium";
+    src: url("/resource/font_style/Poppins-Medium.ttf") format("TrueType");
+}
+@font-face {
+    font-family: "Poppins-MediumItalic";
+    src: url("/resource/font_style/Poppins-MediumItalic.ttf") format("TrueType");
+}
+@font-face {
+    font-family: "Poppins-SemiBold";
+    src: url("/resource/font_style/Poppins-SemiBold.ttf") format("TrueType");
+}
+@font-face {
+    font-family: "Poppins-SemiBoldItalic";
+    src: url("/resource/font_style/Poppins-SemiBoldItalic.ttf") format("TrueType");
+}
+@font-face {
+    font-family: "Poppins-Bold";
+    src: url("/resource/font_style/Poppins-Bold.ttf") format("TrueType");
+}
+@font-face {
+    font-family: "Poppins-BoldItalic";
+    src: url("/resource/font_style/Poppins-BoldItalic.ttf") format("TrueType");
+}
+
+h2.poptitle {
+    font-family: "Poppins-SemiBold";
+    font-size: 1.2rem;
+    color: #000;
+    text-transform: capitalize;
+}
+a{
+    font-family: "Poppins-Regular";
+}
+.my-modal-footer {
+    --slds-c-modal-footer-color-background: LightGray;
+}
+.removeDropZone {
+    color: #ffffff;
+    --lwc-borderWidthThin: 0px;
+}
+.slds-file-selector__button{white-space: nowrap;}
+.fileSelectflex {
+    display: flex;
+    border-bottom:1px solid #e7e7e7;
+    padding:6px 9px;
+    transition: 0.5s all;
+}
+.fileSelectflex:hover{background:#f7f7f7;}
+
+.primarybtn {
+    min-width: 106px;
+    height: 36px;
+    /* UI Properties */
+    background-size: 300% 100%;
+    -moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    border: 1px solid #FFFFFF;
+    border-radius: 8px;
+    font-family: "Poppins-Regular";
+    font-size: 0.84rem;
+    color: #fff;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-right: 10px;
+}
+
+.primarybtn:hover {
+    background-position: 100% 0;
+    -moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    box-shadow: 0px 1px 6px #00000029;
+}
+
+.primarybtn.color-1 {
+    background: #3C5BB4;
+    color: #fff;
+    font-family: "Poppins-Regular";
+
+}
+
+.primarybtn.color-3 {
+    border: 1px solid #4d4d4d;
+    color: #4D4D4D;
+    background: transparent;
+    font-family: "Poppins-Regular";
+}
+
+.fileuploadCont{
+    background: rgb(199,244,255);
+    background: linear-gradient(0deg, rgba(199,244,255,1) 0%, rgba(255,255,255,0) 100%);
+    margin:1rem;position: relative;border: 1px dashed blue;height: 70px;padding: 0.6rem;border-radius:4px;
+}
+.fileflexcont{display:flex;align-items:center;justify-content: space-between;}
+.fileflexcont p{font-family: "Poppins-Regular";font-size:0.85rem;text-align: center;color:#19699F}
+
+.layout-style{
+    border-left: 1px solid #e7e7e7;
+}
+.fileName-style{
+    height: 200px;
+}
+.filedisplay-style{
+     white-space: nowrap;
+     overflow: hidden; 
+     text-overflow: ellipsis;	
+     max-width: 250px;
+}
+.filedisplaytext-style{
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;	
+    max-width: 250px;
+}
+.nofile-style{
+    color: red;
+}
+.footer-style{
+    overflow:hidden;
+}
+.fileselect-style{
+    color:#19699f;
+}
+/* Accessibility: visible keyboard focus on action buttons */
+.primarybtn:focus-visible,
+.secondaryBtn:focus-visible {
+    outline: 2px solid #3C5BB4;
+    outline-offset: 2px;
+}

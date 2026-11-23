@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>The custom metadata is used to store the file type mapping that is needed to upload the files to AWS S3</description>
+    <label>AWS File Type Mapping</label>
+    <pluralLabel>AWS File Type Mappings</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

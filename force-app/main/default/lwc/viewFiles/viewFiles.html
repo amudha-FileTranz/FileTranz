@@ -1,0 +1,140 @@
+<!--
+ * Purpose : To retrieve files from external system.
+ * Author  : Giri
+-->
+
+<template>
+	<article class="slds-tile" if:true={state.bolViewFiles}>
+		<div class="div1-style">
+			<div
+				class="slds-var-p-horizontal_medium div2-style">
+				<div class="subtitle div3-style">
+					<h2 class="slds-card__header-title title-style">
+						<!-- <img src={strFtIconUrl} /> -->
+						<label class=" slds-p-vertical_x-small"><b>{data.strTitle}</b></label>
+					</h2>
+				</div>
+			</div>
+			<div class="">
+				<div if:true={state.isLoading}>
+					<lightning-spinner alternative-text={CUSTOM_LABELS.Loading} size="small"></lightning-spinner>
+				</div>
+				<template if:true={state.bolFiles}>
+					<div class="slds-scrollable div4-style ">
+						<div class="resptbl slds-var-p-horizontal_medium slds-p-vertical_small">
+							<!-- resptbl -->
+							<table>
+								<thead class="tablehead-style">
+									<tr>
+										<th scope="col" class="tablehead1-style">
+											<div class="slds-truncate align-style" title={CUSTOM_LABELS.File_Name}>
+												{CUSTOM_LABELS.File_Name}</div>
+										</th>
+										<th scope="col" class="tablehead2-style">
+											<div class="slds-truncate align-style" title={CUSTOM_LABELS.File_Type}>
+												{CUSTOM_LABELS.File_Type}</div>
+										</th>
+										<th scope="col" class="tablehead3-style">
+											<div class="slds-truncate align-style" title={CUSTOM_LABELS.File_Size}
+												>
+												{CUSTOM_LABELS.File_Size}</div>
+										</th>
+										<th scope="col" class="tablehead4-style"  if:true={state.bolShowActions}>
+											<div class="slds-truncate action-style" title={CUSTOM_LABELS.ACTION}>
+												{CUSTOM_LABELS.ACTION}</div>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<template for:each={data.arrTempFiles} for:item="files">
+										<tr key={files.strFileName}>
+											<td>
+												<div if:true={state.bolPreviewFile} class="div5-style"
+													>
+													<a onclick={handlePrevDelDownload}
+														data-filelocationurl={files.strFileURL}
+														data-filetype={files.strFileType} data-straction="Preview"
+														data-strid={files.strId} data-invokingscreen="Related"
+														title={files.strFileName}>{files.strFileName}</a>
+												</div>
+												<div if:false={state.bolPreviewFile} class="align-style">
+													<p title={files.strFileName} class="strfileName-style">
+														{files.strFileName}</p>
+												</div>
+											</td>
+											<td class="strfiletype-style">
+												{files.strFileType}</td>
+											<td class="align-style">{files.strSize}</td>
+											<td class="slds-text-align_center" if:true={state.bolShowActions}>
+												<button class="slds-button slds-button_icon btndownload"
+													if:true={parentState.bolDownloadFile} title={CUSTOM_LABELS.Download}
+													data-straction="Download" data-invokingscreen="Related"
+													data-strid={files.strId} onclick={handlePrevDelDownload}>
+													<svg xmlns="http://www.w3.org/2000/svg" width="34.431"
+														height="36.825" viewBox="0 0 36.431 38.825">
+															<path data-id="Union_86" data-name="Union 86"
+															d="M4479,36.825a2,2,0,0,1-2-2v-10.9a2,2,0,0,1,2-2h1.139l1.165,9.662a.815.815,0,0,0,.229.57.769.769,0,0,0,.553.236h24.257a.8.8,0,0,0,.784-.805l1.163-9.662h1.14a2,2,0,0,1,2,2v10.9a2,2,0,0,1-2,2Zm14.646-9.91L4483.259,15.95l3.041-3.157,5.522,5.507V0h4.585V18.3l5.3-5.507,3.358,3.157-10.115,10.966a1.533,1.533,0,0,1-.7.248A1.064,1.064,0,0,1,4493.645,26.915Z"
+															transform="translate(-4476.999)" />
+													</svg>
+												</button>
+												<button class="slds-button slds-button_icon btndelete"
+													if:true={parentState.bolDeleteFile} title={CUSTOM_LABELS.Delete}
+													data-strid={files.strId} onclick={handlePrevDelDownload}
+													data-invokingscreen="Related" data-straction="Delete"
+													data-filename={files.strFileName} data-filetype={files.strFileType}>
+													<svg xmlns="http://www.w3.org/2000/svg" width="18" height="22"
+														viewBox="0 0 160 160" class="delete-style">
+														<path data-id="exdelete" data-name="exdelete"
+															d="M4514,164a16,16,0,0,1-16-16V70a6.006,6.006,0,0,1,6-6h96a6.006,6.006,0,0,1,6,6v78a16,16,0,0,1-16,16Zm48-19h13V89h-13Zm-34,0h13V89h-13Zm37-95h-83a5,5,0,0,1-5-5V32a5,5,0,0,1,5-5h42V19a16,16,0,0,1,16-16h25a16,16,0,0,1,16,16v8h41a5,5,0,0,1,5,5V45a5,5,0,0,1-5,5Zm2-23V19.42a4,4,0,0,0-4-4h-21a4,4,0,0,0-4,4V27Z"
+															transform="translate(-4477 -2.999)" />
+													</svg>
+												</button>
+											</td>
+										</tr>
+									</template>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</template>
+				<template if:false={state.isLoading}>
+					<div class="empty-state" if:false={state.bolFiles}>
+						<lightning-icon icon-name="utility:open_folder" size="small" class="empty-state-icon"></lightning-icon>
+						<p class="empty-state-text">{CUSTOM_LABELS.No_related_files_found}</p>
+					</div>
+				</template>
+			</div>
+			<div class="slds-align_absolute-center slds-p-vertical_xx-small">
+				<a class="slds-m-top_small" onclick={handleViewAll} if:true={state.bolFiles}><span
+						class="view-all-label">{CUSTOM_LABELS.View_All}</span></a>
+			</div>
+		</div>
+	</article>
+
+	<template if:true={bolDelete}>
+		<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+			aria-describedby="modal-content-id-1"
+			class="slds-modal slds-fade-in-open animated slideInDown1 popup-inner">
+			<div class="slds-modal__container">
+				<!-- modal header start -->
+				<header class="slds-modal__header delete-message confirmdelete-style">
+					<h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">
+						{CUSTOM_LABELS.Confirm_Delete}
+					</h2>
+				</header>
+				<!-- modal body start -->
+				<div class="slds-modal__content delete-info-message slds-p-horizontal_medium" id="modal-content-id-3">
+					<div class="dispflexbox">
+						<p class="slds-p-top_small">{CUSTOM_LABELS.Are_you_sure_you_want_to_delete_it}</p>
+					</div>
+					<div class="div7-style">
+						<input type="submit" class="primarybtn color-1" value={CUSTOM_LABELS.Yes}
+							onclick={handleConfirmDelete} />
+						<input type="button" class="secondaryBtn" value={CUSTOM_LABELS.No} onclick={hideDeleteModal} />
+					</div>
+				</div>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open popup" id="popup2"></div>
+	</template>
+</template>

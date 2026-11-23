@@ -1,0 +1,101 @@
+<!--
+ *
+ * Purpose : To enable/disable multi language translations. 
+ * Author  : Giri
+ *
+-->
+
+<template>
+	<div class="slds-grid header-shadow job-configuration install-style" >
+		<div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-p-around_small">
+			<h1 class="title">{CUSTOM_LABELS.Install_Language}</h1>
+			<p>{CUSTOM_LABELS.Language_setup_help_text}</p>
+		</div>
+	</div>
+	<div class="transbg">
+		<div if:true={bolInstallAll} class="slds-box slds-align_absolute-center slds-theme_success">
+			<h2 class="title avail-style">{CUSTOM_LABELS.All_available_languages_are_Installed}</h2>
+		</div>
+		<div class="pageHeaderbg slds-p-around_small slds-m-around_small">
+			<h2 class="langtitle">{CUSTOM_LABELS.Installed_Languages}</h2>
+		</div>
+		<div class="btndispflex slds-var-m-vertical_small">
+			<template for:each={arrInstalledLanguages} for:item="language">
+				<div class="foldercont" key={language.strLanguageLabel}>
+					<button type="button" class="transpBtn" disabled>
+						<div class="foldicon">
+							<img src={strLanFolderUrl} />
+							<div class="chkIcon">
+								<img src={strChkIconUrl} />
+							</div>
+						</div>
+						<p>{language.strLanguageLabel}</p>
+					</button>
+				</div>
+			</template>
+		</div>
+		<div class="pageHeaderbg slds-p-around_small slds-m-around_small" if:true={arrAvailableLanguages}>
+			<h2 class="langtitle">{CUSTOM_LABELS.Available_Languages}</h2>
+		</div>
+		<div class="btndispflex slds-var-m-vertical_small slds-p-around_small" if:true={arrAvailableLanguages}>
+			<template for:each={arrAvailableLanguages} for:item="language">
+				<div class="foldercont" key={language.strLanguageLabel}>
+					<button data-id={language.strLanguageLabel} type="button" onclick={handleInstall} class="transpBtn"
+						data-language={language.strLanguageCode} if:false={language.isInstalled}
+						data-index={language.intSno} disabled={language.isDisabled}>
+						<div class="foldicon">
+							<img src={strLanFolderUrl} />
+							<div class="chkIcon">
+								<img src={strDownloadIconUrl} if:false={language.isLoading} />
+							</div>
+							<div class="chkIcon" if:true={language.isLoading}>
+								<div class="slds-spinner_container">
+									<div role="status" class="slds-spinner slds-spinner_x-small">
+										<span class="slds-assistive-text">{CUSTOM_LABELS.Loading}</span>
+										<div class="slds-spinner__dot-a"></div>
+										<div class="slds-spinner__dot-b"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<p>{language.strLanguageLabel}</p>
+					</button>
+					<button type="button" class="transpBtn" data-language={language.strLanguageCode}
+						if:true={language.isInstalled} disabled>
+						<div class="foldicon">
+							<img src={strLanFolderUrl} />
+							<div class="chkIcon">
+								<img src={strChkIconUrl} />
+							</div>
+						</div>
+						<p>{language.strLanguageLabel}</p>
+					</button>
+				</div>
+			</template>
+		</div>
+		<div class="pageHeaderbg slds-p-around_small slds-m-around_small" if:true={arrOtherSupportedLanguages}>
+			<h2 class="langtitle">{CUSTOM_LABELS.Other_Supported_Languages}</h2>
+		</div>
+		<div class="btndispflex slds-var-m-vertical_small slds-p-around_small" if:true={arrOtherSupportedLanguages}>
+			<template for:each={arrOtherSupportedLanguages} for:item="language">
+				<div class="foldercont" key={language.strLanguageLabel}>
+					<button type="button" class="transpBtn" disabled>
+						<div class="foldicon">
+							<img src={strLanFolderUrl} title={CUSTOM_LABELS.This_Language_is_not_enabled_in_your_Org} />
+							<div class="chkIcon">
+								<img src={strDownloadIconUrl}
+									title={CUSTOM_LABELS.This_Language_is_not_enabled_in_your_Org} />
+							</div>
+						</div>
+						<p>{language.strLanguageLabel}</p>
+					</button>
+				</div>
+			</template>
+		</div>
+	</div>
+	<div if:false={bolInstallAll} class="slds-var-p-vertical_small slds-var-p-right_small installall-style">
+		<span class="alllanguage-style">{CUSTOM_LABELS.Install_all_languages_in_a_single_click}</span>
+		<Button class="primarybtn color-1" type="button" onclick={handleInstallAll}
+			disabled={bolInstallAll}>{CUSTOM_LABELS.INSTALL_ALL} </Button>
+	</div>
+</template>

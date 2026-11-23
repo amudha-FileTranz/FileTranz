@@ -1,0 +1,256 @@
+@font-face {
+    font-family: "Poppins-Regular";
+    src: url("/resource/font_style/Poppins-Regular.ttf") format("TrueType");
+}
+
+@font-face {
+    font-family: "Poppins-Medium";
+    src: url("/resource/font_style/Poppins-Medium.ttf") format("TrueType");
+}
+@font-face {
+    font-family: "Poppins-MediumItalic";
+    src: url("/resource/font_style/Poppins-MediumItalic.ttf") format("TrueType");
+}
+@font-face {
+    font-family: "Poppins-SemiBold";
+    src: url("/resource/font_style/Poppins-SemiBold.ttf") format("TrueType");
+}
+@font-face {
+    font-family: "Poppins-SemiBoldItalic";
+    src: url("/resource/font_style/Poppins-SemiBoldItalic.ttf") format("TrueType");
+}
+@font-face {
+    font-family: "Poppins-Bold";
+    src: url("/resource/font_style/Poppins-Bold.ttf") format("TrueType");
+}
+@font-face {
+    font-family: "Poppins-BoldItalic";
+    src: url("/resource/font_style/Poppins-BoldItalic.ttf") format("TrueType");
+}
+.drop-zone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    color: #999;
+    cursor: pointer;
+    height: 160px;
+    width: 100%;
+    border-radius: 10px;
+    margin: 10px 13px 0px 10px; 
+}
+.uploadCont{
+    background: #FAFAFC;
+    margin: 0.75rem 1rem 1rem;
+    position: relative;
+    border: 1px dashed #4d4d4d45;
+    padding: 14px 12px;
+    border-radius: 8px;
+    text-align: center;
+    font-family: "Poppins-Regular";
+    align-content: center;
+    cursor: pointer;
+    transition: 0.25s all;
+}
+.uploadCont:hover{
+    background: #F3F4FC;
+    border-color: #3c5bb488;
+}
+p{
+    font-family:"Poppins-Regular";
+}
+label{
+    font-family:"Poppins-Regular";
+}
+
+.drop-zone.drag-over {
+    border-color: #000;
+    background-color: #eee;
+}
+
+.addfileBtn { 
+    background:#6077e5;
+    cursor: pointer;width:30px;height:30px;border-radius:3px;
+}
+
+.primarybtn {
+    min-width: 106px;
+    height: 36px;
+    /* UI Properties */
+    background-size: 300% 100%;
+    -moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    box-shadow: 0px 3px 6px #00000029;
+    border: 1px solid #FFFFFF;
+    border-radius: 8px;
+    font-family: "Poppins-Regular";
+    font-size: 0.84rem;
+    color: #fff;
+    text-transform: uppercase;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-right: 10px;
+}
+
+
+.primarybtn:hover {
+    background-position: 100% 0;
+    -moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    box-shadow: 0px 1px 6px #00000029;
+}
+
+.primarybtn:focus-visible,
+.upload-button:focus-visible {
+    outline: 2px solid #3C5BB4;
+    outline-offset: 2px;
+}
+
+.primarybtn.color-1 {
+    background: #3C5BB4;
+    color: #fff;
+    border: #3C5BB4;
+    box-shadow: none;
+    font-family: "Poppins-Regular";
+}
+
+.primarybtn.color-3 {
+    border:1px solid #4d4d4d;
+    color: #4d4d4d;
+    box-shadow: none;
+    background: none;
+    font-family: "Poppins-Regular";
+}
+.primarybtn:last-child{margin-right:0}
+.flexcont svg{
+    text-align: center;
+}
+.upload-cloud-icon{
+    --sds-c-icon-color-foreground-default: #8891C4;
+    margin-bottom: 6px;
+}
+.flexcont p{
+    font-family: "Poppins-Medium";
+    font-size:14px;
+    text-align: center;
+    color:#202020;
+}
+.flexcont p span{
+    font-size:12px;
+    color:#646464;
+    display:block;
+    font_style: italic;
+}
+.flexcont .help-text{
+    font-size: 11px;
+    color:#202020;
+    letter-spacing: 1px;
+    font-weight: lighter;
+}
+
+.flexcont button{
+    border: 1px solid #4d4d4d52;
+    color: #3c5bb4;
+    font-size: 12px;
+}
+.flexcont button:hover{
+    color: #fff;
+    background: #3c5bb4;
+    transition: color 0.3s;
+}
+.btndelete{background:transparent;border:1px solid #4d4d4d45;width:25px;height:25px;padding:5px;fill:red;transition:0.5s all}
+.btndelete:hover{fill:#fff;background:red}
+.customize-badge-color{
+    background: none;
+    padding-left:0;
+    font-family: "Poppins-Regular";
+}
+.upload-file-footer{
+    border: 0;
+    background-color: #fff;
+    text-align: end;
+}
+.subtitle {
+    position: relative;
+}
+.btnicn{
+    box-shadow: none !important;
+}
+.btnicn:active{
+    border: none;
+}
+.footer-btn{
+    background: transparent;
+    text-align: right;
+    padding: 15px;
+}
+.fileuploadsection-style{
+    background-color: #fff;
+    border: 1px solid #ECECEC;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    padding-bottom: 1px;
+}
+.display-style{
+    display: flex;
+    align-items:center;
+    border-bottom:1px solid #C9C9C9;
+    justify-content: space-between;
+    padding: 2px 4px;
+}
+.header-style{
+    flex: 1 1 auto;
+    min-width: 0;
+}
+.font_style{
+  font-family:Poppins-Regular;  
+}
+.addfilesbutton-style{
+    display:flex;
+    align-items:center; 
+    gap:10px;
+}
+.iconbutton-style{
+    gap:5px;
+}
+.buttoncolour-style{
+    color:#3a59af;
+    font-weight:600;
+}
+.dragfiles-style{
+    margin-top: 10px;
+}
+.selectedfile-style{
+    display: flex;
+    justify-content:normal;
+    border: 1px solid #4d4d4d45; 
+    align-items: center; 
+    padding: 8px; 
+    border-radius: 6px; 
+    justify-content: space-evenly;
+}
+.attachmenticon-style{
+    width:42px;
+}
+.attachmentname-style{
+    width:80%;
+}
+.attachmentupload-style{
+    width:42px;
+}
+.attachmentcancel-style{
+    width:42px; 
+    text-align: end;
+}
+.cancelsvg-style{
+    margin-left:1px;
+}
+.attachmentalign-style{
+    width:90%;
+    display:inline-block;
+    color:#19699F;
+}

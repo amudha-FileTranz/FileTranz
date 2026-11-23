@@ -1,0 +1,700 @@
+<!--
+* Purpose : Screen for setup/monitor/run filetranz batch/scheduled jobs. 
+* Author  : Anandhakumar Thangasamy
+-->
+<template>
+	<template if:true={bolSpinner}>
+		<lightning-spinner alternative-text={CUSTOM_LABELS.Loading} size="small"></lightning-spinner>
+	</template>
+	<div class="slds-grid header-shadow job-configuration header-style">
+		<div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-p-around_small">
+			<h1 class="title">{CUSTOM_LABELS.Manage_Filetranz_Jobs}</h1>
+			<p>{CUSTOM_LABELS.Administrator_can_manage_all_the_Filetranz_Jobs}</p>
+		</div>
+		<div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-p-around_small">
+			<div class="configuration-style">
+				<div class="iconflex" if:false={bolShowBatchConfiguration}>
+					<div class="slds-text-align_center cursorp disabled-wrapper" onmouseenter={showScheduleHelpText} onmouseleave={hideScheduleHelpText}>
+						<button class="slds-button slds-button_icon btnicn btnicn1 prel schedulejob-button "
+							title="Schedule Job" onclick={handleScheduleApex} disabled={disableScheduleButton}>
+
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 160 142">
+								<g id="Group_215" data-name="Group 215" transform="translate(-6075 -429)">
+									<g id="Rectangle_373" data-name="Rectangle 373" transform="translate(6075 429)"
+										fill="none" stroke="#fff" stroke-width="8">
+										<rect width="147" height="129" rx="9" stroke="none" />
+										<rect x="4" y="4" width="139" height="121" rx="5" fill="none" />
+									</g>
+									<line id="Line_35" data-name="Line 35" x2="137" transform="translate(6080.5 466.5)"
+										fill="none" stroke="#fff" stroke-width="8" />
+									<rect id="Rectangle_379" data-name="Rectangle 379" width="16" height="16"
+										transform="translate(6092 501)" fill="#fff" />
+									<rect id="Rectangle_384" data-name="Rectangle 384" width="16" height="16"
+										transform="translate(6092 524)" fill="#fff" />
+									<rect id="Rectangle_380" data-name="Rectangle 380" width="16" height="16"
+										transform="translate(6116 501)" fill="#fff" />
+									<rect id="Rectangle_385" data-name="Rectangle 385" width="16" height="16"
+										transform="translate(6116 524)" fill="#fff" />
+									<rect id="Rectangle_376" data-name="Rectangle 376" width="16" height="16"
+										transform="translate(6140 478)" fill="#fff" />
+									<rect id="Rectangle_381" data-name="Rectangle 381" width="16" height="16"
+										transform="translate(6140 501)" fill="#fff" />
+									<rect id="Rectangle_386" data-name="Rectangle 386" width="16" height="16"
+										transform="translate(6140 524)" fill="#fff" />
+									<rect id="Rectangle_377" data-name="Rectangle 377" width="16" height="16"
+										transform="translate(6164 478)" fill="#fff" />
+									<rect id="Rectangle_382" data-name="Rectangle 382" width="16" height="16"
+										transform="translate(6164 501)" fill="#fff" />
+									<rect id="Rectangle_378" data-name="Rectangle 378" width="16" height="16"
+										transform="translate(6188 478)" fill="#fff" />
+									<g id="Rectangle_383" data-name="Rectangle 383" transform="translate(6188 501)"
+										fill="none" stroke="#fff" stroke-width="3">
+										<rect width="16" height="16" stroke="none" />
+										<rect x="1.5" y="1.5" width="13" height="13" fill="none" />
+									</g>
+									<g id="Ellipse_206" data-name="Ellipse 206" transform="translate(6100 441)"
+										fill="none" stroke="#fff" stroke-width="3">
+										<circle cx="9" cy="9" r="9" stroke="none" />
+										<circle cx="9" cy="9" r="7.5" fill="none" />
+									</g>
+									<g id="Ellipse_208" data-name="Ellipse 208" transform="translate(6178 441)"
+										fill="none" stroke="#fff" stroke-width="3">
+										<circle cx="9" cy="9" r="9" stroke="none" />
+										<circle cx="9" cy="9" r="7.5" fill="none" />
+									</g>
+									<circle id="Ellipse_209" data-name="Ellipse 209" cx="38.5" cy="38.5" r="38.5"
+										transform="translate(6158 494)" fill="#fff" />
+									<circle id="Ellipse_210" data-name="Ellipse 210" cx="31.5" cy="31.5" r="31.5"
+										transform="translate(6165 501)" fill="#79b506" />
+									<path id="Path_322" data-name="Path 322" d="M0,24.808V-1.383"
+										transform="translate(6195.177 511.177)" fill="none" stroke="#fff"
+										stroke-linecap="round" stroke-width="6" />
+									<line id="Line_37" data-name="Line 37" x2="16.539" y2="6.891"
+										transform="translate(6195.177 535.985)" fill="none" stroke="#fff"
+										stroke-linecap="round" stroke-width="6" />
+								</g>
+							</svg>
+							{CUSTOM_LABELS.Schedule_Job}
+						</button>
+					<template if:true={bolShowScheduleMessage}>
+						<div class="slds-popover slds-popover_tooltip schedule-tooltip">
+							<div class="slds-popover__body">
+								{CUSTOM_LABELS.Feature_Access_Restricted}
+							</div>
+						</div>
+					</template>
+					</div>
+				</div>
+				<div class="iconflex" if:false={bolShowBatchConfiguration}>
+					<div class="slds-text-align_center cursorp" onclick={handleRunBatch}>
+						<button class="slds-button slds-button_icon btnicn btnicn1 prel runjob-button" title="Run Job">
+							<svg xmlns="http://www.w3.org/2000/svg" width="21" height="20"
+								viewBox="0 0 122.939 122.971">
+								<path id="Union_113" data-name="Union 113"
+									d="M4505.462,115.383a15.806,15.806,0,0,0-20.841-20.842,62.682,62.682,0,0,1-7.588-18.28,15.875,15.875,0,0,0,7.279-5.723,15.8,15.8,0,0,0-7.311-23.8,64.117,64.117,0,0,1,7.556-18.313,15.459,15.459,0,0,0,6.435,1.377,15.841,15.841,0,0,0,5.947-1.152,15.791,15.791,0,0,0,9.621-11.878,15.712,15.712,0,0,0-1.128-9.188A62.622,62.622,0,0,1,4523.711,0a15.784,15.784,0,0,0,5.71,7.295,15.7,15.7,0,0,0,9.048,2.854,15.7,15.7,0,0,0,9.048-2.854A15.793,15.793,0,0,0,4553.229,0a62.253,62.253,0,0,1,18.249,7.588,15.948,15.948,0,0,0-1.117,9.2,15.763,15.763,0,0,0,15.556,13.019,15.958,15.958,0,0,0,6.435-1.377,62.689,62.689,0,0,1,7.588,18.282,15.884,15.884,0,0,0-7.308,5.721,15.817,15.817,0,0,0,.008,18.1,15.914,15.914,0,0,0,7.267,5.727,62.893,62.893,0,0,1-7.588,18.28,15.863,15.863,0,0,0-6.4-1.345,15.794,15.794,0,0,0-14.439,22.187,62.681,62.681,0,0,1-18.281,7.587,15.775,15.775,0,0,0-29.453,0h0A62.91,62.91,0,0,1,4505.462,115.383Zm19.11-86.171A34.6,34.6,0,1,0,4538,26.5,34.372,34.372,0,0,0,4524.572,29.212ZM4528,77.97V45.03a2,2,0,0,1,3.209-1.593l21.693,16.47a2,2,0,0,1,0,3.186l-21.693,16.47a1.97,1.97,0,0,1-1.2.411A2,2,0,0,1,4528,77.97Z"
+									transform="translate(-4477)" fill="#fff" />
+							</svg>
+							{CUSTOM_LABELS.Run_Job}
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="iconflex" if:true={bolShowBatchConfiguration}>
+				<div class="slds-text-align_center cursorp">
+					<button class="slds-button slds-button_icon btnicn btnicn2 prel" title="Back To Home"
+						onclick={handleBackToHome}>
+
+						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 12 12">
+							<g clip-path="url(#a)">
+								<path fill="#4d4d4d"
+									d="m6.463 3.75-2.32 1.93a.417.417 0 0 0 0 .64l2.32 1.93a.417.417 0 0 0 .683-.32V4.07a.417.417 0 0 0-.683-.32Z" />
+								<path stroke="#4d4d4d" stroke-miterlimit="10" stroke-width=".833"
+									d="M11 6c0-2.76-2.24-5-5-5S1 3.24 1 6s2.24 5 5 5 5-2.24 5-5Z" />
+							</g>
+
+						</svg>
+						{CUSTOM_LABELS.Back_To_Home}
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<template if:false={bolShowBatchConfiguration}>
+		<div class="transbg slds-m-around_small job-configuration">
+			<template if:true={bolShowTable}>
+				<div class="slds-m-left_x-small slds-m-right_x-small slds-scrollable tblCustHgt">
+					<div class="resptbl slds-var-m-bottom_small">
+						<table>
+							<thead class="table-style">
+								<tr>
+									<th scope="col" class="jobname-style">
+										<div class="slds-truncate" title={CUSTOM_LABELS.JOB_NAME}>
+											{CUSTOM_LABELS.JOB_NAME}</div>
+									</th>
+									<th scope="col">
+										<div class="slds-truncate" title={CUSTOM_LABELS.SCHEDULED_BY}>
+											{CUSTOM_LABELS.SCHEDULED_BY}</div>
+									</th>
+									<th scope="col">
+										<div class="slds-truncate" title={CUSTOM_LABELS.SCHEDULED_DATE}>
+											{CUSTOM_LABELS.SCHEDULED_DATE}</div>
+									</th>
+									<th scope="col">
+										<div class="slds-truncate" title={CUSTOM_LABELS.START_TIME}>
+											{CUSTOM_LABELS.START_TIME}</div>
+									</th>
+									<th scope="col">
+										<div class="slds-truncate" title={CUSTOM_LABELS.NEXT_SCHEDULED_RUN}>
+											{CUSTOM_LABELS.NEXT_SCHEDULED_RUN}</div>
+									</th>
+									<th class="action-style" title={CUSTOM_LABELS.ACTION}>
+										{CUSTOM_LABELS.ACTION}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<template for:each={arrScheduledJobs} for:item="scheduledJob">
+									<tr key={scheduledJob.strJobName}>
+										<td class="schedulejob-style">{scheduledJob.strJobName}</td>
+										<td>{scheduledJob.strScheduledBy}</td>
+										<td>{scheduledJob.strScheduledDate}</td>
+										<td>{scheduledJob.strPreviousFireTime}</td>
+										<td>{scheduledJob.strNextFireTime}</td>
+										<td>
+											<button class="slds-button slds-button_icon btndelete label-style"
+												type="Delete" data-jobname={scheduledJob.strJobName}
+												onclick={handleRowDelAction} title={CUSTOM_LABELS.Delete}>
+												<svg xmlns="http://www.w3.org/2000/svg" width="18" height="22"
+													viewBox="0 0 160 160" class="deletebutton-style">
+													<path data-id="rwdelete" data-name="rwdelete"
+														d="M4514,164a16,16,0,0,1-16-16V70a6.006,6.006,0,0,1,6-6h96a6.006,6.006,0,0,1,6,6v78a16,16,0,0,1-16,16Zm48-19h13V89h-13Zm-34,0h13V89h-13Zm37-95h-83a5,5,0,0,1-5-5V32a5,5,0,0,1,5-5h42V19a16,16,0,0,1,16-16h25a16,16,0,0,1,16,16v8h41a5,5,0,0,1,5,5V45a5,5,0,0,1-5,5Zm2-23V19.42a4,4,0,0,0-4-4h-21a4,4,0,0,0-4,4V27Z"
+														transform="translate(-4477 -2.999)" />
+												</svg>
+											</button>
+										</td>
+									</tr>
+								</template>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</template>
+			<template if:false={bolShowTable}>
+				<div class="empty-state">
+					<lightning-icon icon-name="utility:event" size="small" class="empty-state-icon"></lightning-icon>
+					<p class="empty-state-text"><b>{CUSTOM_LABELS.No_jobs_scheduled_at_the_moment}</b></p>
+				</div>
+			</template>
+		</div>
+	</template>
+	<!--Schedule Job-->
+
+	<!--Use template if:true to display/hide popup based on bolShowBatchConfiguration value-->
+	<template if:true={bolShowBatchConfiguration}>
+		<div if:true={bolSpinner}>
+			<lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+		</div>
+		<div class="transbg slds-m-around_small job-configuration">
+			<div class="subtitle">
+				<h2 class="innerTitle ScheduleFileTranz-style" id="modal-heading-01" if:false={bolRunBatch}>
+					{CUSTOM_LABELS.Schedule_FileTranz_Job}</h2>
+				<h2 class="innerTitle" id="modal-heading-02" if:true={bolRunBatch}>{CUSTOM_LABELS.Run_FileTranz_Job}
+				</h2>
+			</div>
+			<hr />
+
+			<div class="slds-p-vertical_medium select-field-section">
+				<lightning-progress-indicator current-step={strCurrentStep} type="path" variant="base"
+					class="select-field-section">
+					<lightning-progress-step label={CUSTOM_LABELS.Select_Batch} value="1"></lightning-progress-step>
+					<lightning-progress-step label={CUSTOM_LABELS.Apply_Filter} value="2"></lightning-progress-step>
+					<lightning-progress-step label={CUSTOM_LABELS.Schedule_Batch} value="3" if:false={bolRunBatch}>
+					</lightning-progress-step>
+				</lightning-progress-indicator>
+			</div>
+
+			<!-- Modal/Popup body starts here -->
+			<template if:true={stateManageJob.bolFirstStep}>
+				<div class="slds-modal__content slds-var-p-around_medium sectionSplit search-field_section label-style"
+					id="modal-content-id-1">
+					<lightning-input if:false={bolRunBatch} label={CUSTOM_LABELS.JOB_NAME} value={strName}
+						onchange={handleName} required> </lightning-input>
+					<div class="slds-p-top_small slds-p-bottom_x-small">
+						<div class="helptext-style">
+							<h2 class="innerTitle slds-p-right_xx-small">{CUSTOM_LABELS.Batches}</h2>
+							<lightning-helptext content={strBatchHelp} class="innerhelptext-style">
+							</lightning-helptext>
+						</div>
+
+						<div class="label-style">
+							<section>
+								<div>
+									<input id="control_01" value="1" type="radio" title={strUploadFileBatchHelp}
+										name="Migrate Files" onchange={handleBatchSelection} checked={bolFileBatch} />
+									<label for="control_01" class="radioLbl-left_spacing">
+										<h2 class="radioLbl">{CUSTOM_LABELS.Upload_Files}</h2>
+										<p class="radioLbl-text">
+											{CUSTOM_LABELS.Executing_this_batch_will_upload_all_the_Salesforce_files_to_the_External_Storag}
+										</p>
+									</label>
+								</div>
+
+
+								<div>
+									<input id="control_03" value="1" type="radio" title={strAttachmentBatchHelp}
+										name="Migrate Attachments" onchange={handleBatchSelection}
+										checked={bolAttachmentsCheck} />
+									<label for="control_03" class="radioLbl-left_spacing">
+										<h2 class="radioLbl">{CUSTOM_LABELS.Upload_Attachments}</h2>
+										<p class="radioLbl-text">
+											{CUSTOM_LABELS.Executing_this_batch_will_upload_all_the_Salesforce_attachments_to_the_External}
+										</p>
+									</label>
+								</div>
+							</section>
+
+						</div>
+					</div>
+				</div>
+			</template>
+			<template if:true={stateManageJob.bolSecondStep}>
+				<div class="slds-var-p-around_medium sectionSplit layoutdiv-style" id="modal-content-id-2">
+					<lightning-layout-item>
+						<div if:true={bolBatchOption}>
+							<div>
+								<div class="migrateoptiondiv-style">
+									<div if:false={bolFileBatchCDL}>
+										<lightning-radio-group label={CUSTOM_LABELS.Migrate_Options}
+											data-name="batchOption" options={arrBatchOptions} value={strBatchOption}
+											disabled={bolDisableMigrateOption} onchange={handleConditionChange}
+											type="button" class="radio-button-custom radio-button-grey">
+										</lightning-radio-group>
+									</div>
+									<div if:true={bolFileBatchCDL}>
+										<lightning-radio-group label={CUSTOM_LABELS.Migrate_Options}
+											data-name="batchOption" options={arrBatchOptions} value={strBatchOption}
+											disabled={bolDisableMigrateOption} onchange={handleConditionChange}
+											type="button" class="radio-button-custom radio-button-grey">
+										</lightning-radio-group>
+									</div>
+									<div if:true={bolShowBatchOption}>
+										<label class="filtercriteria-style">
+											{CUSTOM_LABELS.Filter_Criteria}</label>
+										<form class="radio-button-custom-2">
+											<label class="radiobtn">
+												<input type="radio" name="radio" data-name="pickCondition"
+													onchange={handleConditionChange} checked={bolPickCondition} />
+												<span>{CUSTOM_LABELS.Pick_My_Conditions}</span>
+											</label>
+											<label class="radiobtn">
+												<input type="radio" name="radio" data-name="manualCondition"
+													onchange={handleConditionChange}
+													checked={bolManualBatchCondition} />
+												<span>{CUSTOM_LABELS.Write_My_Conditions}</span>
+											</label>
+										</form>
+									</div>
+									<div if:true={bolShowBatchOption}>
+										<label class="migratebyobject-style">
+											{CUSTOM_LABELS.Migrate_by_Object}</label>
+										<lightning-layout-item size="12" small-device-size="12" medium-device-size="6"
+											large-device-size="6" class="">
+											<input id="toggles" class="toggleCheckbox" type="checkbox" name="status"
+												onclick={handleObjChangeToggle} checked={bolEvnt} />
+											<label for="toggles" class="toggleContainer">
+												<div>{CUSTOM_LABELS.INACTIVE}</div>
+												<div>{CUSTOM_LABELS.ACTIVE}</div>
+											</label>
+										</lightning-layout-item>
+									</div>
+								</div>
+								<div if:true={bolShowBatchOption} class="batchconditiondiv-style">
+
+									<div class="input-search-field_section slds-p-around_small">
+										<lightning-layout if:false={bolManualBatchCondition} multiple-rows
+											class="batchlayout-style slds-m-bottom_small">
+											<lightning-layout-item size="12">
+												<div class="">
+													<h2 class="innerTitle slds-border_bottom slds-p-bottom_xx-small">
+														{CUSTOM_LABELS.Batch_Condition}</h2>
+												</div>
+											</lightning-layout-item>
+
+											<lightning-layout-item if:true={bolFileBatchCDL} size="12">
+												<lightning-combobox
+													class="objectselection-style reqValidation slds-m-bottom_medium slds-p-horizontal_small"
+													required data-name="Object" name="Object"
+													label={CUSTOM_LABELS.Select_the_object} options={arrAvailableObject}
+													onchange={handleObjectChange} value={strObject}>
+												</lightning-combobox>
+											</lightning-layout-item>
+											<lightning-layout-item if:true={bolAttachmentsByObjectCheck} size="12">
+												<lightning-combobox
+													class="reqValidation slds-m-bottom_medium "
+													required data-name="Object" name="Object"
+													label={CUSTOM_LABELS.Select_the_object} options={arrAvailableObject}
+													onchange={handleObjectChange}>
+												</lightning-combobox>
+											</lightning-layout-item>
+											<template for:each={arrConditions} for:item="condition">
+
+												<lightning-layout-item key={condition.key} size="12"
+													padding="" small-device-size="12"
+													medium-device-size="3" large-device-size="3">
+													<lightning-combobox class="reqValidation dropdown-custom" required
+														data-id={condition.key} data-name="field" name="field"
+														label={CUSTOM_LABELS.Field} value={condition.strField}
+														options={arrFieldOptions} onchange={handleConditionChange}>
+													</lightning-combobox>
+												</lightning-layout-item>
+												<lightning-layout-item key={condition.key} size="12"
+													padding="" small-device-size="12"
+													medium-device-size="3" large-device-size="3">
+													<lightning-combobox class="reqValidation dropdown-custom" required
+														data-id={condition.key} data-name="operator" name="operator"
+														label={CUSTOM_LABELS.Operator} value={condition.strOperator}
+														options={arrOperators} onchange={handleConditionChange}>
+													</lightning-combobox>
+												</lightning-layout-item>
+												<lightning-layout-item key={condition.key} size="12"
+													padding="" small-device-size="5"
+													medium-device-size="3" large-device-size="3">
+													<lightning-input class="reqValidation dropdown-custom" required={condition.isRequired}
+														data-id={condition.key} data-name="value" type="Text"
+														label={CUSTOM_LABELS.Value} value={condition.strValue}
+														onchange={handleConditionChange}></lightning-input>
+												</lightning-layout-item>
+												<lightning-layout-item key={condition.key} size="12"
+													padding="" small-device-size="12"
+													medium-device-size="2" large-device-size="2"
+													class="conditionkey-style">
+													<!-- <label style="opacity: 0; display: block">&nbsp;</label> -->
+													<button class="slds-button slds-button_icon deleteField"
+														if:true={bolShowDel} data-id={condition.key}
+														onclick={handleConditionDelete} title={CUSTOM_LABELS.Delete}>
+														<svg xmlns="http://www.w3.org/2000/svg" width="18" height="22"
+															viewBox="0 0 200 200">
+															<path data-id="fdelete" data-name="fdelete"
+																d="M4514,164a16,16,0,0,1-16-16V70a6.006,6.006,0,0,1,6-6h96a6.006,6.006,0,0,1,6,6v78a16,16,0,0,1-16,16Zm48-19h13V89h-13Zm-34,0h13V89h-13Zm37-95h-83a5,5,0,0,1-5-5V32a5,5,0,0,1,5-5h42V19a16,16,0,0,1,16-16h25a16,16,0,0,1,16,16v8h41a5,5,0,0,1,5,5V45a5,5,0,0,1-5,5Zm2-23V19.42a4,4,0,0,0-4-4h-21a4,4,0,0,0-4,4V27Z"
+																transform="translate(-4477 -2.999)" />
+														</svg>
+													</button>
+													<button class="slds-button slds-button_icon addField"
+														title={CUSTOM_LABELS.Add} if:true={condition.bolShowAdd}
+														onclick={handleAddRow}>
+														<svg xmlns="http://www.w3.org/2000/svg" width="18" height="20"
+															fill="none" viewBox="0 0 20 20">
+															<path
+																d="M10 2c4.411 0 8 3.589 8 8s-3.589 8-8 8-8-3.589-8-8 3.589-8 8-8Zm0-2C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0Zm5 9h-4V5H9v4H5v2h4v4h2v-4h4V9Z" />
+														</svg>
+
+													</button>
+
+
+												</lightning-layout-item>
+											</template>
+										</lightning-layout>
+										<lightning-input type="Text" if:false={bolManualBatchCondition}
+											label={CUSTOM_LABELS.Conditional_Logic} data-name="conditionalLogic"
+											value={strConditionalLogic}
+											field-level-help={CUSTOM_LABELS.Conditional_Logic_help_text}
+											onchange={handleConditionChange}
+											class="slds-m-top_small slds-m-bottom_small logichelptext-style">
+										</lightning-input>
+										<lightning-textarea type="Text"
+											class="reqValidation slds-m-top_small slds-m-bottom_medium "
+											if:true={bolManualBatchCondition} label={CUSTOM_LABELS.Batch_Condition}
+											field-level-help={strBatchConditionHelpText}
+											data-name="manualWhereCondition" onchange={handleExcuteJobCondition}
+											value={strWhere} required>
+										</lightning-textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</lightning-layout-item>
+				</div>
+
+				<div class="chkboxGroup slds-m-top_medium checkbox-style">
+					<ul class="unstyled">
+						<li>
+							<input type="Checkbox" class="styled-checkbox" id="deleteOrg"
+								checked={bolDeleteUploadedRecords} onchange={handleDeleteChange}
+								title={strDeleteHelp} />
+							<label class="deleteoriginalfile-style" for="deleteOrg">{strDeleteOriginalFileLabel}</label>
+						</li>
+						<li if:true={bolShowUserFileIncludeChk}>
+							<input class="styled-checkbox" id="includeFiles" type="Checkbox"
+								checked={bolIncludeUserRecords} onchange={handleUserIncludeOptionChange}
+								title={strIncludeUserHelp} />
+							<label class="incluseuserfile-style"
+								for="includeFiles">{CUSTOM_LABELS.Include_User_Files}</label>
+						</li>
+					</ul>
+
+				</div>
+
+			</template>
+			<template if:true={stateManageJob.bolThirdStep}>
+				<template if:false={bolRunBatch}>
+					<div class="slds-modal__content slds-var-p-around_medium slds-scrollable_y sectionSplit input-search-field_section frequency-style"
+						id="modal-content-id-3">
+						<!-- height: 420px; -->
+						<lightning-layout multiple-rows>
+							<lightning-layout-item size="12" small-device-size="12" medium-device-size="9"
+								large-device-size="12">
+								<fieldset>
+									<div>
+										<div>
+											<legend>Frequency</legend>
+											<form class="form-toggle-btn">
+												<label class="radiobtn frequencylabel-style">
+													<input type="radio" name={CUSTOM_LABELS.Once} data-name="Once"
+														onchange={handleChangeFrequency} checked={bolShowOnce} />
+													<span>{CUSTOM_LABELS.Once}</span>
+												</label>
+												<label class="radiobtn radiobuttonweekly-style">
+													<input type="radio" name="Weekly" data-name="Weekly"
+														onchange={handleChangeFrequency} checked={bolShowWeekly} />
+													<span>{CUSTOM_LABELS.Weekly}</span>
+												</label>
+												<label class="radiobtn radiobuttonmonthly-style">
+													<input type="radio" name="Weekly" data-name="Monthly"
+														onchange={handleChangeFrequency} checked={bolShowMonthly} />
+													<span>{CUSTOM_LABELS.Monthly}</span>
+												</label>
+											</form>
+										</div>
+										<!-- <hr /> -->
+										<div if:true={bolShowOnce}>
+											<div class="slds-grid slds-wrap">
+  												<div class="slds-col slds-size_3-of-12">
+													<lightning-input type="date" name="input2"
+														label={CUSTOM_LABELS.Preferred_Schedule_Date} value={tStartDate}
+														onchange={handleDateChange} required>
+													</lightning-input>
+												</div>
+												<div class="slds-col slds-size_3-of-12 slds-p-left_x-small">
+													<lightning-input  type="time" name="input1"
+														label={CUSTOM_LABELS.Preferred_Start_time} value={tStartTime}
+														field-level-help={strPreferedTimeFieldHelp} onchange={handleTimeChange} required>
+													</lightning-input>
+												</div>
+											</div>
+										</div>
+										<div if:true={bolShowWeekly}>
+											<label class="label-style">{CUSTOM_LABELS.Recurs_every_week_on}</label>
+											<table class="chkboxGroup" style="width: 100%;">
+												<tr class="unstyled centered" style="display: flow;">
+													<td style="width: 5%;">
+														<div class="checkboxgrp" onclick={handleChangeWeekly}>
+															<input id="Sunday" type="checkbox" value="1"
+																data-name="Sunday" checked={bolSunday}>
+															<div>
+																<span for="Sunday">
+																	{CUSTOM_LABELS.Sunday}
+																</span>
+															</div>
+														</div>
+													</td>
+													<td style="width: 5%;">
+														<div class="checkboxgrp" onclick={handleChangeWeekly}>
+															<input id="Monday" type="checkbox" value="2"
+																data-name="Monday" checked={bolMonday} />
+															<div>
+																<span for="Monday">
+																	{CUSTOM_LABELS.Monday}
+																</span>
+															</div>
+														</div>
+													</td>
+													<td style="width: 5%;">
+														<div class="checkboxgrp" onclick={handleChangeWeekly}>
+															<input id="Tuesday" type="checkbox" value="3"
+																data-name="Tuesday" checked={bolTuesday} />
+															<div>
+																<span for="Tuesday">
+																	{CUSTOM_LABELS.Tuesday}
+																</span>
+															</div>
+														</div>
+
+													</td>
+													<td style="width: 5%;">
+														<div class="checkboxgrp" onclick={handleChangeWeekly}>
+															<input id="Wednesday" type="checkbox" value="3"
+																data-name="Wednesday" checked={bolWednesday} />
+															<div>
+																<span for="Wednesday">
+																	{CUSTOM_LABELS.Wednesday}
+																</span>
+															</div>
+														</div>
+
+													</td>
+													<td style="width: 5%;">
+														<div class="checkboxgrp" onclick={handleChangeWeekly}>
+															<input id="Thursday" type="checkbox" value="3"
+																data-name="Thursday" checked={bolThursday} />
+															<div>
+																<span for="Thursday">
+																	{CUSTOM_LABELS.Thursday}
+																</span>
+															</div>
+														</div>
+
+													</td>
+													<td style="width: 5%;">
+														<div class="checkboxgrp" onclick={handleChangeWeekly}>
+															<input id="Friday" type="checkbox" value="3"
+																data-name="Friday" checked={bolFriday} />
+															<div>
+																<span for="Friday">
+																	{CUSTOM_LABELS.Friday}
+																</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="checkboxgrp" onclick={handleChangeWeekly}>
+															<input id="Saturday" type="checkbox" value="3"
+																data-name="Saturday" checked={bolSatday} />
+															<div>
+																<span for="Saturday">
+																	{CUSTOM_LABELS.Saturday}
+																</span>
+															</div>
+														</div>
+													</td>
+												</tr>
+												<tr style="display: flex;">
+													<td style="width: 25%;">
+														<lightning-input type="time" name="input1"
+															label={CUSTOM_LABELS.Preferred_Start_time} value={tStartTime}
+															field-level-help={strPreferedTimeFieldHelp} onchange={handleTimeChange} required>
+														</lightning-input>
+													</td>
+												</tr>
+											</table>
+										</div>
+										<div if:true={bolShowMonthly} class="secflex">
+											<div class="secflex">
+												<lightning-input type="radio" label={CUSTOM_LABELS.On_day}
+													checked={bolDayOfMonth} onchange={handleDaySelectionChange}>
+												</lightning-input>
+												<lightning-combobox name="day" value={strDay} options={arrDayOptions}
+													onchange={handleDayChange} disabled={bolWeekOfMonth}
+													variant="label-hidden" class="day-style">
+												</lightning-combobox>
+												<p>{CUSTOM_LABELS.of_every_month}</p>
+											</div>
+											<div class="secflex ml35">
+												<lightning-input type="radio" label={CUSTOM_LABELS.On_the}
+													checked={bolWeekOfMonth} onchange={handleMonthSelectionChange}>
+												</lightning-input>
+												<lightning-combobox name="day" value={strWeek} options={arrWeekOptions}
+													onchange={handleWeekChange} disabled={bolDayOfMonth}
+													variant="label-hidden" class="week-style">
+												</lightning-combobox>
+												<lightning-combobox name="day" value={strWeekDay}
+													options={arrWeekDayOptions} onchange={handleWeekDayChange}
+													disabled={bolDayOfMonth} variant="label-hidden"
+													class="weekday-style"></lightning-combobox>
+												<p>{CUSTOM_LABELS.of_every_month}</p>
+											</div>
+											<table style="width: 100%; margin-top: 20px" >
+												<tr style="display: flex">
+													<td style="width: 25%">
+														<lightning-input type="time" name="input1"
+															label={CUSTOM_LABELS.Preferred_Start_time} value={tStartTime}
+															field-level-help={strPreferedTimeFieldHelp} onchange={handleTimeChange} required>
+														</lightning-input>
+													</td>
+												</tr>
+												
+											</table>
+										</div>
+									</div>
+								</fieldset>
+							</lightning-layout-item>
+							<lightning-layout-item size="12" small-device-size="12" medium-device-size="4"
+								large-device-size="4"> </lightning-layout-item>
+						</lightning-layout>
+					</div>
+				</template>
+			</template>
+			<div class="slds-p-left_small slds-m-top_medium bottom-style">
+				<input type="button" class="primarybtn color-1" value={CUSTOM_LABELS.Previous}
+					title={CUSTOM_LABELS.Previous} onclick={handlePrevious}
+					disabled={stateManageJob.bolDisablePrevious} style="cursor: pointer;"/>
+				<template if:false={bolRunBatch}>
+					<div if:true={stateManageJob.bolThirdStep}>
+						<input type="button" class="primarybtn color-1 schedule-button-style"
+							value={CUSTOM_LABELS.Schedule_Job} onclick={handleScheduler} style="cursor: pointer;"/>
+						<input type="button" class="primarybtn color-3" value={CUSTOM_LABELS.Close}
+							onclick={ScheduleJobcloseModal} style="cursor: pointer;"/>
+					</div>
+					<input type="button" class="primarybtn color-2 next-style" value={CUSTOM_LABELS.Next}
+						title={CUSTOM_LABELS.Next} onclick={handleNext} if:false={stateManageJob.bolThirdStep}
+						disabled={stateManageJob.bolDisableNext} style="cursor: pointer;"/>
+				</template>
+
+				<template if:true={bolRunBatch}>
+					<div if:true={stateManageJob.bolSecondStep}>
+						<input type="button" class="primarybtn color-1" value={CUSTOM_LABELS.Execute_Batch}
+							onclick={handleExcuteBatch} disabled={bolDisableExecute} style="cursor: pointer;"/>
+						<input type="button" class="primarybtn color-3" value={CUSTOM_LABELS.Close}
+							onclick={hideBatchModalBox} style="cursor: pointer;"/>
+					</div>
+					<input type="button" class="primarybtn color-2" value={CUSTOM_LABELS.Next}
+						title={CUSTOM_LABELS.Next} onclick={handleNext} if:false={stateManageJob.bolSecondStep}
+						disabled={stateManageJob.bolDisableNext} style="cursor: pointer;"/>
+				</template>
+			</div>
+		</div>
+	</template>
+	<template if:true={bolShowAbortWarning}>
+		<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+			aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container job-configuration">
+				<!-- modal body start -->
+				<div class="slds-modal__content  slds-var-p-around_small" id="modal-content-id-30">
+					<p class="text-left p-0">{CUSTOM_LABELS.Do_you_want_to_abort_the_batch_job}</p>
+				</div>
+				<!-- modal footer start -->
+				<footer class="slds-modal__footer customize-footer text-right">
+					<lightning-button class="slds-button slds-var-m-left_x-small" variant="neutral"
+						label={CUSTOM_LABELS.Yes} onclick={handleAbortJob}> </lightning-button>
+					<lightning-button class="slds-button slds-var-m-left_x-small" label={CUSTOM_LABELS.No}
+						onclick={hideAbortWarning}> </lightning-button>
+				</footer>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open"></div>
+	</template>
+	<template if:true={bolDelete}>
+		<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+			aria-describedby="modal-content-id-1"
+			class="slds-modal slds-fade-in-open animated slideInDown1 popup-inner">
+			<div class="slds-modal__container containerWidth">
+				<!-- modal header start -->
+				<header class="slds-modal__header delete-message confirmdelete-style">
+					<h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">
+						{CUSTOM_LABELS.Confirm_Delete}
+					</h2>
+				</header>
+				<!-- modal body start -->
+				<div class="slds-modal__content delete-info-message slds-p-horizontal_medium" id="modal-content-id-4">
+					<div class="dispflexbox">
+						<p class="slds-p-top_small">{CUSTOM_LABELS.Are_you_sure_you_want_to_delete_it}</p>
+					</div>
+					<div class="submit-style">
+						<input type="submit" class="primarybtn2 color-1" value={CUSTOM_LABELS.Yes}
+							onclick={handleConfirmDelete} />
+						<input type="button" class="secondaryBtn" value={CUSTOM_LABELS.No} onclick={hideDeleteModal} style="cursor: pointer;"/>
+					</div>
+				</div>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open popup" id="popup2"></div>
+	</template>
+</template>

@@ -1,0 +1,104 @@
+<!--
+ * Purpose : To add the existing/new files from the record page.
+ * Author  : Anandhakumar Thangasamy
+-->
+
+<template>
+    <div class="slds-p-vertical_medium slds-p-left_small">
+        <h2 class="slds-modal__title slds-hyphenate poptitle">{CUSTOM_LABELS.Select_Files}</h2>
+        <p>{CUSTOM_LABELS.Associate_Existing_File_Description} {objectName}</p>
+    </div>
+    <div class="label-style">
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="12" small-device-size="12" medium-device-size="3" large-device-size="3">
+                <!--Navigation-->
+                <lightning-vertical-navigation selected-item={data.strSelectedTab} onselect={handleSelect}
+                class="navigation navigation_custom_style">
+                    <lightning-vertical-navigation-section>
+                        <lightning-vertical-navigation-item label={CUSTOM_LABELS.Recent_Files} name="recent">
+                        </lightning-vertical-navigation-item>
+                        <lightning-vertical-navigation-item label={CUSTOM_LABELS.Owned_By_Me} name="owned_by_me">
+                        </lightning-vertical-navigation-item>
+                    </lightning-vertical-navigation-section>
+                </lightning-vertical-navigation>
+            </lightning-layout-item>
+
+            <lightning-layout-item class="layout-style" padding="around-medium" size="12"
+            small-device-size="12" medium-device-size="9" large-device-size="9">
+                <!--Search Box-->
+                <lightning-input if:false={state.bolNoFiles} name="enter-search" onchange={handleSearch}
+                    value={data.strSearchKey} placeholder={CUSTOM_LABELS.Search_Files} type="search"
+                    variant="label-hidden" class="slds-m-bottom_small"></lightning-input>
+                <!--Spinner-->
+                <template if:true={state.bolIsLoading}>
+                    <lightning-spinner alternative-text={CUSTOM_LABELS.Loading} size="small"></lightning-spinner>
+                </template>
+
+                <template if:false={state.bolIsLoading}>
+                    <div class="slds-scrollable fileup fileName-style" >
+                        <!--Owned Files-->
+                        <template for:each={data.arrRecentFiles} for:item="file" if:true={state.bolShowRecent}>
+
+                            <div key={file.strName} class="fileSelectflex">
+                                <lightning-input  type="checkbox" data-name={file.strName}
+                                    onchange={handlecheck} checked={file.bolSelected} disabled={file.bolDisable}
+                                    variant="label-hidden">
+                                </lightning-input>
+                                <div class="filedisplay-style">
+                                    <b><a href={file.strFileURL}>{file.strFileName} </a></b>
+
+                                    <ul class="slds-list_horizontal slds-has-dividers_right">
+                                        <li class="slds-item">
+                                            <p>
+                                                <lightning-formatted-text value={file.strDisplayText}>
+                                                </lightning-formatted-text>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </template>
+                        <!--Recent Files-->
+                        <template for:each={data.arrOwnedFiles} for:item="file" if:false={state.bolShowRecent}>
+                            <div key={file.strName} class="fileSelectflex">
+                                <lightning-input  type="checkbox" data-name={file.strName}
+                                    onchange={handlecheck} disabled={file.bolDisable} checked={file.bolSelected}
+                                    variant="label-hidden">
+                                </lightning-input>
+                                <div class="filedisplaytext-style">
+                                    <b><a href={file.strFileURL}>{file.strFileName} </a></b>
+                                    <ul class="slds-list_horizontal slds-has-dividers_right">
+                                        <li class="slds-item">
+                                            <p>
+                                                <lightning-formatted-text value={file.strDisplayText}>
+                                                </lightning-formatted-text>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- The external files based on user search key are displayed. If there is an zero record open the below popup message -->
+                <template if:true={state.bolNoFilesFound}>
+                    <div class="slds-text-align_center slds-var-p-around_medium1 nofile-style" if:false={bolFiles} >
+                        {CUSTOM_LABELS.No_files_found}</div>
+                </template>
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+
+<!-- Footer Content -->
+    <div class="slds-p-horizontal_small slds-p-vertical_small footer-style" >
+        <div class="slds-float_left slds-m-top_xx-small">
+            <p class="fileselect-style">{data.intFilesSelected}&nbsp; {CUSTOM_LABELS.of} {data.intAllowFilesToUpload}
+                {CUSTOM_LABELS.files_selected}</p>
+        </div>
+        <div class="slds-float_right">
+            <input type="button" value={CUSTOM_LABELS.Add_Files} class="primarybtn color-1" onclick={handleAddFile} />
+            <input type="button" value={CUSTOM_LABELS.Cancel} class="primarybtn color-3" onclick={handleCancel} />
+        </div>
+    </div>
+</template>

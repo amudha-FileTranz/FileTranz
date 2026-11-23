@@ -1,0 +1,23 @@
+/*Org wide Configuration  - Dual list element CSS override*/
+
+.dualList{position: relative;}
+.dualList span.slds-form-element__label { /*label theme changes*/
+    background:#3a59af;
+    padding: 6px 8px;
+    width: 136px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    color: #fff;;
+    font-size:0.84rem;
+    margin-left:6px;
+    margin-bottom:0px;
+    font-family: "poppins";
+    
+}
+.slds-dueling-list__column lightning-button-icon:first-child{margin-top:36px!important;}/*button top space*/
+.slds-dueling-list__column lightning-button-icon .slds-button_icon{border:1px solid #747474!important}
+.slds-dueling-list__column .slds-button:first-of-type{margin-top:0.8rem}/* top space for button*/
+.slds-dueling-list__column .slds-button{margin:1rem}/* space around the duel arrow button*/
+.lightning-base-combobox.customwidth.slds-combobox_container {
+    width: 40%;
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Language_Code__c</fullName>
+    <description>The purpose of field is to store the Language code of the language selected for applying a multi-language setup</description>
+    <externalId>false</externalId>
+    <label>Language Code</label>
+    <length>18</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

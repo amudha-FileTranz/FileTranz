@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <logo>filetranz_whitebg</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
+    </brand>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>true</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>FileTranz</label>
+    <navType>Standard</navType>
+    <tabs>Admin_Screen</tabs>
+    <tabs>Log_Activity__c</tabs>
+    <tabs>FileTranz_Bin</tabs>
+    <tabs>External_File_Link__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>FileTranz_UtilityBar</utilityBar>
+</CustomApplication>

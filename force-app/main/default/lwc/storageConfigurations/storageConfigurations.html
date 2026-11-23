@@ -1,0 +1,167 @@
+<!--
+   * Purpose : To configure storage connection details.
+   * Author  : Nishanth S
+   -->
+   <template>
+	<div if:true={bolSpinner}>
+	   <lightning-spinner alternative-text={CUSTOM_LABELS.Loading} size="small"></lightning-spinner>
+	</div>
+	<div class="slds-grid slds-wrap header-shadow">
+	   <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 slds-p-around_small">
+		  <h1 class="title">{CUSTOM_LABELS.Storage_Configuration}</h1>
+		  <p>{CUSTOM_LABELS.Storage_Configuration_help_text}</p>
+	   </div>
+	</div>
+	<div class="storageCont storageContPad slds-m-top_small">
+	   <div class="verticalmenuBG">
+		  <ul class="">
+			 <li class="menuactive">
+				<span class="icon-wrap">
+				   <img src={strAWSiconUrl} class="image-width"/>
+				   <span if:false={bolNewConfig} class="status-dot" title="Connected"></span>
+				</span>
+				<h1>{CUSTOM_LABELS.AWS}</h1>
+			 </li>
+		  </ul>
+	   </div>
+	   <div class="label-style">
+		  <template if:false={bolNewConfig}>
+			 <div>
+				<lightning-layout multiple-rows class="input-border-color">
+				   <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+					  large-device-size="6" padding="around-small">
+					  <lightning-input name="strName" type="text" label={CUSTOM_LABELS.Name} class="customInput padding"
+						 value={objWrapperExterStorageSetting.strName} read-only onchange={handleValueChange}>
+					  </lightning-input>
+				   </lightning-layout-item>
+				   <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+					  large-device-size="6" padding="around-small">
+					  <lightning-input type="text" name="strAccKy" label={CUSTOM_LABELS.Admin_Access_key_ID}
+						 read-only value={objWrapperExterStorageSetting.strAccKy}
+						 onchange={handleValueChange} class="padding">
+					  </lightning-input>
+				   </lightning-layout-item>
+				   <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+					  large-device-size="6" padding="around-small">
+					  <div class="hideInput">
+						 <lightning-input type={strInputTypeSecretKey} name="strStKey"
+							label={CUSTOM_LABELS.Admin_Secret_Access_key} read-only class="padding"
+							value={objWrapperExterStorageSetting.strStKey} onchange={handleValueChange}>
+						 </lightning-input>
+						 <lightning-helptext icon-name="utility:preview"
+							content={CUSTOM_LABELS.Please_click_and_hold_to_see_the_Secret_key}
+							onmousedown={handleEyeIconIn} onmouseup={handleEyeIconOut}
+							class="slds-m-left_xx-small eyeIcon" size="x-small"></lightning-helptext>
+					  </div>
+				   </lightning-layout-item>
+				   <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+					  large-device-size="6" padding="around-small">
+					  <lightning-input type="text" name="strRegion" label={CUSTOM_LABELS.Select_Region} read-only
+						 value={objWrapperExterStorageSetting.strRegion} onchange={handleValueChange} class="padding">
+					  </lightning-input>
+				   </lightning-layout-item>
+				   <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+					  large-device-size="6" padding="around-small">
+					  <lightning-input type="text" name="strEndPoint" label={CUSTOM_LABELS.Endpoint_Url} read-only
+						 value={objWrapperExterStorageSetting.strEndPoint} onchange={handleValueChange} class="padding">
+					  </lightning-input>
+				   </lightning-layout-item>
+				   <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+					  large-device-size="6" padding="around-small">
+					  <lightning-input type="text" name="strBucket" label={CUSTOM_LABELS.Bucket} read-only
+						 value={objWrapperExterStorageSetting.strBucket} onchange={handleValueChange} class="padding">
+					  </lightning-input>
+				   </lightning-layout-item>
+				</lightning-layout>
+			 </div>
+		  </template>
+		  <template if:true={bolNewConfig}>
+			 <div class="slds-p-vertical_medium slds-p-left_small">
+				<h2 class="slds-hyphenate poptitle">{strExtStorageName}</h2>
+			 </div>
+			 <div class="slds-p-vertical_medium">
+				<lightning-layout multiple-rows>
+				   <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+					  large-device-size="6" padding="around-small">
+					  <lightning-input name="strName" type="text" label={CUSTOM_LABELS.Name}
+						 value={objWrapperExterStorageSetting.strName} onchange={handleValueChange}
+						 placeholder={CUSTOM_LABELS.Enter_Connection_Name} required>
+					  </lightning-input>
+				   </lightning-layout-item>
+				   <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+					  large-device-size="6" padding="around-small">
+					  <lightning-input type="text" name="strAccKy" label={CUSTOM_LABELS.Admin_Access_key_ID}
+						 value={objWrapperExterStorageSetting.strAccKy} onchange={handleValueChange}
+						 placeholder={CUSTOM_LABELS.Enter_Access_Key_ID} required>
+					  </lightning-input>
+				   </lightning-layout-item>
+				   <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+					  large-device-size="6" padding="around-small">
+					  <div class="hideInput">
+						 <lightning-input type={strInputTypeSecretKey} name="strStKey"
+							label={CUSTOM_LABELS.Admin_Secret_Access_key}
+							value={objWrapperExterStorageSetting.strStKey} onchange={handleValueChange}
+							placeholder={CUSTOM_LABELS.Enter_Secret_key_ID} required>
+						 </lightning-input>
+						 <lightning-helptext icon-name="utility:preview"
+							content={CUSTOM_LABELS.Please_click_and_hold_to_see_the_Secret_key}
+							onmousedown={handleEyeIconIn} onmouseup={handleEyeIconOut}
+							class="slds-m-left_xx-small eyeIcon" size="x-small"></lightning-helptext>
+					  </div>
+				   </lightning-layout-item>
+				   <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+					  large-device-size="6" padding="around-small">
+					  <lightning-combobox name="strRegion" label={CUSTOM_LABELS.Select_Region}
+						 value={objWrapperExterStorageSetting.strRegion}
+						 placeholder={CUSTOM_LABELS.Select_Region} options={arrAvailRegions}
+						 onchange={handleValueChange} required>
+					  </lightning-combobox>
+				   </lightning-layout-item>
+				   <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+					  large-device-size="6" padding="around-small">
+					  <lightning-input type="text" name="strEndPoint" label={CUSTOM_LABELS.Endpoint_Url}
+						 value={objWrapperExterStorageSetting.strEndPoint} onchange={handleValueChange}
+						 placeholder={CUSTOM_LABELS.Enter_AWS_Endpoint_URL} required>
+					  </lightning-input>
+				   </lightning-layout-item>
+				   <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+					  large-device-size="6" padding="around-small">
+					  <lightning-input type="text" name="strBucket" label={CUSTOM_LABELS.Bucket}
+						 value={objWrapperExterStorageSetting.strBucket} onchange={handleValueChange}
+						 placeholder={CUSTOM_LABELS.Enter_AWS_Bucket_Name} required>
+					  </lightning-input>
+				   </lightning-layout-item>
+				</lightning-layout>
+			 </div>
+			 <div if:true={bolGoogleDrive} class="slds-modal__content slds-p-around_medium">
+				<lightning-input type="text" name="Client Id" label={CUSTOM_LABELS.Client_ID} value="" disabled>
+				</lightning-input>
+				<lightning-input type="password" name="Client Secret" label={CUSTOM_LABELS.Client_Secret} value=""
+				   disabled>
+				</lightning-input>
+				<b>{CUSTOM_LABELS.Upcoming_release_text}</b>
+			 </div>
+			 <div if:true={bolOneDrive} class="slds-modal__content slds-p-around_medium">
+				<lightning-input type="text" name="Client Id" label={CUSTOM_LABELS.Client_ID} value="" disabled>
+				</lightning-input>
+				<lightning-input type="password" name="Client Secret" label={CUSTOM_LABELS.Client_Secret} value=""
+				   disabled>
+				</lightning-input>
+				<b>{CUSTOM_LABELS.Upcoming_release_text}</b>
+			 </div>
+			 <div class="slds-p-vertical_small slds-p-left_small slds-m-top_small overflow-hidden">
+				<div class="slds-float_right">
+				   <lightning-button-group>
+					  <input type="button" value={CUSTOM_LABELS.Validate} class="primarybtn color-1"
+						 onclick={handleConnectionValidation} disabled={bolValidated} />
+					  <input type="button" value={CUSTOM_LABELS.Submit} class="primarybtn color-2"
+						 disabled={bolDisableSubmit} name="Insert" onclick={handleConnectionSubmit} />
+					  <input type="button" value={CUSTOM_LABELS.Cancel} class="primarybtn color-3"
+						 onclick={handleModalPop} />
+				   </lightning-button-group>
+				</div>
+			 </div>
+		  </template>
+	   </div>
+	</div>
+ </template>
